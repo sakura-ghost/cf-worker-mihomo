@@ -376,7 +376,7 @@ dns:
       - "quic://dns.nextdns.io" # NextDNS（香港） DNS over DOQ
     "+.eu":
       - "quic://dns0.eu" # 公共（欧洲） DNS over DOQ
-    "RULE-SET:Private,China":
+    "geosite:private,CN":
       - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   nameserver:
     - "https://dns.cloudflare.com/dns-query#h3=true" # Cloudflare DNS over H3
