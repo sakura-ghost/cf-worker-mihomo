@@ -9,9 +9,9 @@ proxy-groups:
 
   - { name: 🎯全局直连, type: select, hidden: true, proxies: [DIRECT] }
 
-  - { name: 🚫拒绝连接 type: select, hidden: true, proxies: [REJECT] }
+  - { name: 🚫拒绝连接, type: select, hidden: true, proxies: [REJECT] }
 
-  - { name: 🚫静默拒绝 type: select, hidden: true, proxies: [REJECT-DROP] }
+  - { name: 🚫静默拒绝, type: select, hidden: true, proxies: [REJECT-DROP] }
 
   - { name: ⚪绕过连接, type: select, hidden: true, proxies: [PASS] }
 
