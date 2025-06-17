@@ -12,8 +12,8 @@
 
 # ------------------------------------------------------------
 # 锚点区
-proxy: &proxy { type: select, include-all-providers: true, proxies: [🚀全球代理, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇬🇧英国自动, 🇩🇪德国自动, 🇫🇷法国自动, 🇨🇦加拿大自动, 🇦🇺澳大利亚自动, 🇰🇷韩国自动, 🇷🇺俄罗斯自动, 🇳🇱荷兰自动, 🇮🇳印度自动, 🇲🇾马来西亚自动, 🇵🇱波兰自动, 🇪🇪爱沙尼亚自动, 🇦🇪阿联酋自动, 🇳🇬尼日利亚自动, 🇧🇬保加利亚自动, 🇸🇨塞舌尔自动, 🇪🇸西班牙自动, 🇻🇳越南自动, 🇸🇽荷属圣马丁自动, 🇲🇴澳门自动, 🇵🇭菲律宾自动, 🇹🇭泰国自动, 🇲🇳蒙古自动, 🇫🇮芬兰自动, 🇸🇪瑞典自动, 🇦🇹奥地利自动, 🇧🇷巴西自动, 🇰🇿哈萨克斯坦自动, 🇮🇱以色列自动, 🇦🇪阿拉伯联合酋长国自动, 🇨🇭瑞士自动, 🌐其它地区], exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
-direct: &direct { type: select, include-all-providers: true, proxies: [🎯全球直连, 🚀全球代理, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇬🇧英国自动, 🇩🇪德国自动, 🇫🇷法国自动, 🇨🇦加拿大自动, 🇦🇺澳大利亚自动, 🇰🇷韩国自动, 🇷🇺俄罗斯自动, 🇳🇱荷兰自动, 🇮🇳印度自动, 🇲🇾马来西亚自动, 🇵🇱波兰自动, 🇪🇪爱沙尼亚自动, 🇦🇪阿联酋自动, 🇳🇬尼日利亚自动, 🇧🇬保加利亚自动, 🇸🇨塞舌尔自动, 🇪🇸西班牙自动, 🇻🇳越南自动, 🇸🇽荷属圣马丁自动, 🇲🇴澳门自动, 🇵🇭菲律宾自动, 🇹🇭泰国自动, 🇲🇳蒙古自动, 🇫🇮芬兰自动, 🇸🇪瑞典自动, 🇦🇹奥地利自动, 🇧🇷巴西自动, 🇰🇿哈萨克斯坦自动, 🇮🇱以色列自动, 🇦🇪阿拉伯联合酋长国自动, 🇨🇭瑞士自动, 🌐其它地区], exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+proxy: &proxy { type: select, include-all: true, proxies: [🚀全球代理, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇬🇧英国自动, 🇩🇪德国自动, 🇫🇷法国自动, 🇨🇦加拿大自动, 🇦🇺澳大利亚自动, 🇰🇷韩国自动, 🇷🇺俄罗斯自动, 🇳🇱荷兰自动, 🇮🇳印度自动, 🇲🇾马来西亚自动, 🇵🇱波兰自动, 🇪🇪爱沙尼亚自动, 🇦🇪阿联酋自动, 🇳🇬尼日利亚自动, 🇧🇬保加利亚自动, 🇸🇨塞舌尔自动, 🇪🇸西班牙自动, 🇻🇳越南自动, 🇸🇽荷属圣马丁自动, 🇲🇴澳门自动, 🇵🇭菲律宾自动, 🇹🇭泰国自动, 🇲🇳蒙古自动, 🇫🇮芬兰自动, 🇸🇪瑞典自动, 🇦🇹奥地利自动, 🇧🇷巴西自动, 🇰🇿哈萨克斯坦自动, 🇮🇱以色列自动, 🇦🇪阿拉伯联合酋长国自动, 🇨🇭瑞士自动] }
+direct: &direct { type: select, include-all: true, proxies: [🎯全球直连, 🚀全球代理, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇬🇧英国自动, 🇩🇪德国自动, 🇫🇷法国自动, 🇨🇦加拿大自动, 🇦🇺澳大利亚自动, 🇰🇷韩国自动, 🇷🇺俄罗斯自动, 🇳🇱荷兰自动, 🇮🇳印度自动, 🇲🇾马来西亚自动, 🇵🇱波兰自动, 🇪🇪爱沙尼亚自动, 🇦🇪阿联酋自动, 🇳🇬尼日利亚自动, 🇧🇬保加利亚自动, 🇸🇨塞舌尔自动, 🇪🇸西班牙自动, 🇻🇳越南自动, 🇸🇽荷属圣马丁自动, 🇲🇴澳门自动, 🇵🇭菲律宾自动, 🇹🇭泰国自动, 🇲🇳蒙古自动, 🇫🇮芬兰自动, 🇸🇪瑞典自动, 🇦🇹奥地利自动, 🇧🇷巴西自动, 🇰🇿哈萨克斯坦自动, 🇮🇱以色列自动, 🇦🇪阿拉伯联合酋长国自动, 🇨🇭瑞士自动] }
 ipcidr_mrs: &ipcidr_mrs { type: http, interval: 86400, behavior: ipcidr, format: mrs, proxy: 🎯全球直连 }
 domain_mrs: &domain_mrs { type: http, interval: 86400, behavior: domain, format: mrs, proxy: 🎯全球直连 }
 # 延迟检测 URL
@@ -47,7 +47,7 @@ u: &u
   lazy: true # 懒惰状态
   timeout: 5000 # 健康检查超时时间，单位为毫秒
   max-failed-times: 5 # 最大失败次数，超过则触发一次强制健康检查，默认 5
-  include-all-providers: true # 引入所有代理集合
+  include-all: true # 引入所有代理集合
 
 ######################## start ########################
 # 订阅链接配置区
@@ -252,8 +252,7 @@ dns:
     - RULE-SET:Private,Fakeip_Filter
   nameserver-policy:
     cdn.jsdmirror.cn:
-      - "quic://223.5.5.5"
-      - "quic://223.6.6.6"
+      - "quic://dns.alidns.com"
     "+.jp":
       - "https://public.dns.iij.jp/dns-query#h3=true" # IIJ （日本） DNS over H3
     "+.hk":
@@ -261,48 +260,44 @@ dns:
     "+.eu":
       - "quic://dns0.eu" # 公共（欧洲） DNS over DOQ
     "RULE-SET:Private,China":
-      - "quic://223.5.5.5" # 阿里 DNS over DOQ
-      - "quic://223.6.6.6"
+      - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   nameserver:
-    - "https://1.1.1.1/dns-query#h3=true" # Cloudflare DNS over H3
-    - "https://1.0.0.1/dns-query#h3=true"
-    - "https://8.8.8.8/dns-query#h3=true" # Google DNS over H3
-    - "https://8.8.4.4/dns-query#h3=true"
-    - "https://185.222.222.222/dns-query#h3=true" # SB DNS over H3
-    - "https://45.11.45.11/dns-query#h3=true"
-    - "quic://94.140.15.15" # AdGuard DNS over DOQ
-    - "quic://94.140.14.140"
+    - "https://dns.cloudflare.com/dns-query#h3=true" # Cloudflare DNS over H3
+    - "https://dns.google/dns-query#h3=true" # Google DNS over H3
+#    - "https://doh.dns.sb/dns-query#h3=true" # SB DNS over H3
+    - "quic://dns.adguard-dns.com" # AdGuard DNS over DOQ
   proxy-server-nameserver: # 代理节点域名解析服务器，仅用于解析代理节点的域名
-    - "quic://223.5.5.5" # 阿里 DNS over DOQ
-    - "quic://223.6.6.6"
+    - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   direct-nameserver: #  用于直连出口域名解析的 DNS 服务器
-    - "quic://223.5.5.5" # 阿里 DNS over DOQ
-    - "quic://223.6.6.6"
+    - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   direct-nameserver-follow-policy: true # 是否遵循 nameserver-policy，默认为不遵守，仅当 direct-nameserver 不为空时生效
 
-proxies:
-  - name: "🎯全局直连"
-    type: direct
-  - name: "🚫拒绝连接"
-    type: reject
 proxy-groups:
-  - { name: 🚀全球代理, type: select, proxies: [♻️自动选择, 🟢手动选择, ⚡️均衡负载, 🔯故障转移, 🎯全局直连, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇬🇧英国自动, 🇩🇪德国自动, 🇫🇷法国自动, 🇨🇦加拿大自动, 🇦🇺澳大利亚自动, 🇰🇷韩国自动, 🇷🇺俄罗斯自动, 🇳🇱荷兰自动, 🇮🇳印度自动, 🇲🇾马来西亚自动, 🇵🇱波兰自动, 🇪🇪爱沙尼亚自动, 🇦🇪阿联酋自动, 🇳🇬尼日利亚自动, 🇧🇬保加利亚自动, 🇸🇨塞舌尔自动, 🇪🇸西班牙自动, 🇻🇳越南自动, 🇸🇽荷属圣马丁自动, 🇲🇴澳门自动, 🇵🇭菲律宾自动, 🇹🇭泰国自动, 🇲🇳蒙古自动, 🇫🇮芬兰自动, 🇸🇪瑞典自动, 🇦🇹奥地利自动, 🇧🇷巴西自动, 🇰🇿哈萨克斯坦自动, 🇮🇱以色列自动, 🇦🇪阿拉伯联合酋长国自动, 🇨🇭瑞士自动, 🌐其它地区] }
+  - { name: 🚀全球代理, type: select, proxies: [♻️自动选择, 🟢手动选择, ⚡️均衡负载, 🔯故障转移, 🎯全局直连, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇬🇧英国自动, 🇩🇪德国自动, 🇫🇷法国自动, 🇨🇦加拿大自动, 🇦🇺澳大利亚自动, 🇰🇷韩国自动, 🇷🇺俄罗斯自动, 🇳🇱荷兰自动, 🇮🇳印度自动, 🇲🇾马来西亚自动, 🇵🇱波兰自动, 🇪🇪爱沙尼亚自动, 🇦🇪阿联酋自动, 🇳🇬尼日利亚自动, 🇧🇬保加利亚自动, 🇸🇨塞舌尔自动, 🇪🇸西班牙自动, 🇻🇳越南自动, 🇸🇽荷属圣马丁自动, 🇲🇴澳门自动, 🇵🇭菲律宾自动, 🇹🇭泰国自动, 🇲🇳蒙古自动, 🇫🇮芬兰自动, 🇸🇪瑞典自动, 🇦🇹奥地利自动, 🇧🇷巴西自动, 🇰🇿哈萨克斯坦自动, 🇮🇱以色列自动, 🇦🇪阿拉伯联合酋长国自动, 🇨🇭瑞士自动] }
 
-  - { name: 🟢手动选择, <<: *u, type: select, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+  - { name: 🟢手动选择, <<: *u, type: select }
 
-  - { name: 🪧广告拦截, type: select, proxies: [🚫拒绝连接, 🚀全球代理, 🎯全局直连] }
+  - { name: 🎯全局直连, type: select, hidden: true, proxies: [DIRECT] }
 
-  - { name: 🔎HttpDNS, type: select, proxies: [🚫拒绝连接, 🚀全球代理, 🎯全局直连] }
+  - { name: 🚫拒绝连接 type: select, hidden: true, proxies: [REJECT] }
 
-  - { name: 💧泄漏拦截, type: select, proxies: [🚫拒绝连接, 🚀全球代理, 🎯全局直连] }
+  - { name: 🚫静默拒绝 type: select, hidden: true, proxies: [REJECT-DROP] }
+
+  - { name: ⚪绕过连接, type: select, hidden: true, proxies: [PASS] }
+
+  - { name: 🪧广告拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+
+  - { name: 🔎HttpDNS, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+
+  - { name: 💧泄漏拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
 
   - { name: 🎯全球直连, type: select, proxies: [🎯全局直连, 🚀全球代理] }
 
-  - { name: ♻️自动选择, <<: *u, tolerance: 1, type: url-test, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+  - { name: ♻️自动选择, <<: *u, tolerance: 1, type: url-test }
 
-  - { name: ⚡️均衡负载, <<: *u, strategy: round-robin, type: load-balance, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+  - { name: ⚡️均衡负载, <<: *u, strategy: round-robin, type: load-balance }
 
-  - { name: 🔯故障转移, <<: *u, type: fallback, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+  - { name: 🔯故障转移, <<: *u, type: fallback }
 
   # 应用分组
   - { name: "115", <<: *direct, icon: https://cdn.jsdmirror.cn/gh/Kwisma/cf-worker-mihomo@main/icon/webp/100/115.webp }
@@ -491,45 +486,7 @@ proxy-groups:
 
   - { name: 🇨🇭瑞士自动, <<: *u, hidden: true, filter: '(?i)🇨🇭|\bCH\b|瑞士|Switzerland' }
 
-  - { name: 🌐其它地区, <<: *u, type: select, exclude-filter: '(?i)^.*(?:🎯全局直连|🚫拒绝连接|🇨🇳|\bCN\b|中国|China|
-        ‎|🇭🇰|\bHK\b|香港|Hong Kong|
-        ‎|🇹🇼|\bTW\b|台湾|Taiwan|Tai wan|
-        ‎|🇯🇵|\bJP\b|日本|Japan|
-        ‎|🇺🇸|\bUS\b|美国|United States|CT|
-        ‎|🇸🇬|\bSG\b|新加坡|Singapore|
-        ‎|🇩🇪|\bDE\b|德国|Germany|
-        ‎|🇫🇷|\bFR\b|法国|France|
-        ‎|🇨🇦|\bCA\b|加拿大|Canada|
-        ‎|🇦🇺|\bAU\b|澳大利亚|Australia|
-        ‎|🇰🇷|\bKR\b|韩国|South Korea|
-        ‎|🇷🇺|\bRU\b|俄罗斯|Russia|
-        ‎|🇳🇱|\bNL\b|荷兰|Netherlands|
-        ‎|🇮🇳|\bIN\b|印度|India|
-        ‎|🇲🇾|\bMY\b|马来西亚|Malaysia|
-        ‎|🇵🇱|\bPL\b|波兰|Poland|
-        ‎|🇪🇪|\bEE\b|爱沙尼亚|Estonia|
-        ‎|🇦🇪|\bAE\b|阿联酋|United Arab Emirates|
-        ‎|🇳🇬|\bNG\b|尼日利亚|Nigeria|
-        ‎|🇧🇬|\bBG\b|保加利亚|Bulgaria|
-        ‎|🇸🇨|\bSC\b|塞舌尔|Seychelles|
-        ‎|🇬🇧|\bGB\b|英国|United Kingdom|
-        ‎|🇪🇸|\bES\b|西班牙|Spain|
-        ‎|🇻🇳|\bVN\b|越南|Vietnam|
-        ‎|🇸🇽|\bSX\b|荷属圣马丁|Sint Maarten|
-        ‎|🇲🇴|\bMO\b|澳门|Macau|Macao|
-        ‎|🇵🇭|\bPH\b|菲律宾|Philippines|
-        ‎|🇹🇭|\bTH\b|泰国|Thailand|
-        ‎|🇲🇳|\bMN\b|蒙古|Mongolia|
-        ‎|🇫🇮|\bFI\b|芬兰|Finland|
-        ‎|🇸🇪|\bSE\b|瑞典|Sweden|
-        ‎|🇦🇹|\bAT\b|奥地利|Austria|
-        ‎|🇧🇷|\bBR\b|巴西|Brazil|
-        ‎|🇰🇿|\bKZ\b|哈萨克斯坦|Kazakhstan|
-        ‎|🇮🇱|\bIL\b|以色列|Israel|
-        ‎|🇦🇪|\bAE\b|阿拉伯联合酋长国|United Arab Emirates|
-        ‎|🇨🇭|\bCH\b|瑞士|Switzerland).*$' }
-
-  - { name: GLOBAL, type: select, include-all-providers: true, proxies: [🚀全球代理, 🟢手动选择, 🪧广告拦截, 🔎HttpDNS, 💧泄漏拦截, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 115, 12306, 4399, 4GTV, 58同城, 农业银行, AbemaTV, Adobe, 支付宝, 阿里巴巴, 亚马逊电商, 亚马逊TV, Apple, AppleCN, AppStore, Apple邮箱, Apple音乐, Apple新闻, Apple日报, AppleTV, 巴哈姆特, 百度贴吧, 百度, 哔哩哔哩, 哔哩东南亚, BT追踪器, 暴雪, 字节跳动, Beats, CCTV, 中国媒体, Cloudflare, 钉钉, Discord, Disney, Docker, 豆瓣, E站, EA, Epic, Emby, FCM, Facebook, Fastly, FitnessPlus, 高德, GitHub, Google, Google云盘, Google地图, GoogleVoice, Hoyoverse, Hulu, 虎扑, HBO, IMDB, 爱奇艺, Instagram, 因特尔, iCloud, 京东, 酷狗, 酷我, LastFM, LINE, 美团, 微软, Mihoyo, NGA, 网易, 网易云音乐, Netflix, ニコニコ, OpenAI, 微软云盘, 潘朵拉珠宝, PayPal, PikPak, 拼多多, Pixiv, PlayStation, 国际媒体, Qobuz, Reddit, Rockstar, 什么值得买, Google学术, 新浪, 索尼, SoundCloud, Speedtest, Spotify, Steam, Steam中国, Supercell, Signal, TVB, Telegram, 腾讯, 抖音, TikTok, Twitch, Twitter, Tor, Talkatone, 微信, 维基百科, Wise, YouTube, YouTubeMusic, 禁漫天堂, 哔咔哔咔, 🌐其它地区], icon: https://cdn.jsdmirror.cn/gh/Kwisma/cf-worker-mihomo@main/icon/webp/100/GLOBAL.webp, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+  - { name: GLOBAL, type: select, include-all: true, proxies: [🚀全球代理, 🟢手动选择, 🪧广告拦截, 🔎HttpDNS, 💧泄漏拦截, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 115, 12306, 4399, 4GTV, 58同城, 农业银行, AbemaTV, Adobe, 支付宝, 阿里巴巴, 亚马逊电商, 亚马逊TV, Apple, AppleCN, AppStore, Apple邮箱, Apple音乐, Apple新闻, Apple日报, AppleTV, 巴哈姆特, 百度贴吧, 百度, 哔哩哔哩, 哔哩东南亚, BT追踪器, 暴雪, 字节跳动, Beats, CCTV, 中国媒体, Cloudflare, 钉钉, Discord, Disney, Docker, 豆瓣, E站, EA, Epic, Emby, FCM, Facebook, Fastly, FitnessPlus, 高德, GitHub, Google, Google云盘, Google地图, GoogleVoice, Hoyoverse, Hulu, 虎扑, HBO, IMDB, 爱奇艺, Instagram, 因特尔, iCloud, 京东, 酷狗, 酷我, LastFM, LINE, 美团, 微软, Mihoyo, NGA, 网易, 网易云音乐, Netflix, ニコニコ, OpenAI, 微软云盘, 潘朵拉珠宝, PayPal, PikPak, 拼多多, Pixiv, PlayStation, 国际媒体, Qobuz, Reddit, Rockstar, 什么值得买, Google学术, 新浪, 索尼, SoundCloud, Speedtest, Spotify, Steam, Steam中国, Supercell, Signal, TVB, Telegram, 腾讯, 抖音, TikTok, Twitch, Twitter, Tor, Talkatone, 微信, 维基百科, Wise, YouTube, YouTubeMusic, 禁漫天堂, 哔咔哔咔], icon: https://cdn.jsdmirror.cn/gh/Kwisma/cf-worker-mihomo@main/icon/webp/100/GLOBAL.webp }
 
 rules:
   - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-REJECT

@@ -12,8 +12,8 @@
 
 # ------------------------------------------------------------
 # 锚点区
-proxy: &proxy { type: select, include-all: true, proxies: [🚀全球代理, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇰🇷韩国自动, 🌐其它地区], exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
-direct: &direct { type: select, include-all: true, proxies: [🎯全球直连, 🚀全球代理, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇰🇷韩国自动, 🌐其它地区], exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+proxy: &proxy { type: select, include-all: true, proxies: [🚀全球代理, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇰🇷韩国自动] }
+direct: &direct { type: select, include-all: true, proxies: [🎯全球直连, 🚀全球代理, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇰🇷韩国自动] }
 ipcidr_mrs: &ipcidr_mrs { type: http, interval: 86400, behavior: ipcidr, format: mrs, proxy: 🎯全球直连 }
 domain_mrs: &domain_mrs { type: http, interval: 86400, behavior: domain, format: mrs, proxy: 🎯全球直连 }
 # 延迟检测 URL
@@ -369,62 +369,46 @@ dns:
     - +.y.qq.com
   nameserver-policy:
     cdn.jsdmirror.cn:
-      - "quic://223.5.5.5"
-      - "quic://223.6.6.6"
+      - "quic://dns.alidns.com"
     "+.jp":
       - "https://public.dns.iij.jp/dns-query#h3=true" # IIJ （日本） DNS over H3
     "+.hk":
       - "quic://dns.nextdns.io" # NextDNS（香港） DNS over DOQ
     "+.eu":
       - "quic://dns0.eu" # 公共（欧洲） DNS over DOQ
-    "geosite:private,CN":
-      - "quic://223.5.5.5" # 阿里 DNS over DOQ
-      - "quic://223.6.6.6"
+    "RULE-SET:Private,China":
+      - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   nameserver:
-    - "https://1.1.1.1/dns-query#h3=true" # Cloudflare DNS over H3
-    - "https://1.0.0.1/dns-query#h3=true"
-    - "https://8.8.8.8/dns-query#h3=true" # Google DNS over H3
-    - "https://8.8.4.4/dns-query#h3=true"
-#    - "https://185.222.222.222/dns-query#h3=true" # SB DNS over H3
-#    - "https://45.11.45.11/dns-query#h3=true"
-    - "quic://94.140.15.15" # AdGuard DNS over DOQ
-    - "quic://94.140.14.140"
+    - "https://dns.cloudflare.com/dns-query#h3=true" # Cloudflare DNS over H3
+    - "https://dns.google/dns-query#h3=true" # Google DNS over H3
+#    - "https://doh.dns.sb/dns-query#h3=true" # SB DNS over H3
+    - "quic://dns.adguard-dns.com" # AdGuard DNS over DOQ
   proxy-server-nameserver: # 代理节点域名解析服务器，仅用于解析代理节点的域名
-    - "quic://223.5.5.5" # 阿里 DNS over DOQ
-    - "quic://223.6.6.6"
+    - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   direct-nameserver: #  用于直连出口域名解析的 DNS 服务器
-    - "quic://223.5.5.5" # 阿里 DNS over DOQ
-    - "quic://223.6.6.6"
+    - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   direct-nameserver-follow-policy: true # 是否遵循 nameserver-policy，默认为不遵守，仅当 direct-nameserver 不为空时生效
 
-proxies:
-  - name: "🎯全局直连"
-    type: direct
-  - name: "🚫拒绝连接"
-    type: reject
 proxy-groups:
-  - { name: 🚀全球代理, type: select, proxies: [♻️自动选择, 🟢手动选择, ⚡️均衡负载, 🔯故障转移, 🎯全局直连, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇬🇧英国自动, 🇩🇪德国自动, 🇫🇷法国自动, 🇨🇦加拿大自动, 🇦🇺澳大利亚自动, 🇰🇷韩国自动, 🇷🇺俄罗斯自动, 🇳🇱荷兰自动, 🇮🇳印度自动, 🇲🇾马来西亚自动, 🇵🇱波兰自动, 🇪🇪爱沙尼亚自动, 🇦🇪阿联酋自动, 🇳🇬尼日利亚自动, 🇧🇬保加利亚自动, 🇸🇨塞舌尔自动, 🇪🇸西班牙自动, 🇻🇳越南自动, 🇸🇽荷属圣马丁自动, 🇲🇴澳门自动, 🇵🇭菲律宾自动, 🇹🇭泰国自动, 🇲🇳蒙古自动, 🇫🇮芬兰自动, 🇸🇪瑞典自动, 🇦🇹奥地利自动, 🇧🇷巴西自动, 🇰🇿哈萨克斯坦自动, 🇮🇱以色列自动, 🇦🇪阿拉伯联合酋长国自动, 🇨🇭瑞士自动, 🌐其它地区] }
-  - { name: 🟢手动选择, <<: *u, type: select, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
-  - { name: 🪧广告拦截, type: select, proxies: [🚫拒绝连接, 🚀全球代理, 🎯全局直连] }
-  - { name: 💧泄漏拦截, type: select, proxies: [🚫拒绝连接, 🚀全球代理, 🎯全局直连] }
+  - { name: 🚀全球代理, type: select, proxies: [♻️自动选择, 🟢手动选择, ⚡️均衡负载, 🔯故障转移, 🎯全局直连, 🇭🇰香港自动, 🇹🇼台湾自动, 🇯🇵日本自动, 🇺🇸美国自动, 🇸🇬新加坡自动, 🇰🇷韩国自动] }
+  - { name: 🟢手动选择, <<: *u, type: select }
+  - { name: 🎯全局直连, type: select, hidden: true, proxies: [DIRECT] }
+  - { name: 🚫拒绝连接 type: select, hidden: true, proxies: [REJECT] }
+  - { name: 🚫静默拒绝 type: select, hidden: true, proxies: [REJECT-DROP] }
+  - { name: ⚪绕过连接, type: select, hidden: true, proxies: [PASS] }
+  - { name: 🪧广告拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
+  - { name: 💧泄漏拦截, type: select, proxies: [🚫静默拒绝, 🚫拒绝连接, ⚪绕过连接] }
   - { name: 🎯全球直连, type: select, proxies: [🎯全局直连, 🚀全球代理] }
-  - { name: ♻️自动选择, <<: *u, tolerance: 1, type: url-test, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
-  - { name: ⚡️均衡负载, <<: *u, strategy: round-robin, type: load-balance, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
-  - { name: 🔯故障转移, <<: *u, type: fallback, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+  - { name: ♻️自动选择, <<: *u, tolerance: 1, type: url-test }
+  - { name: ⚡️均衡负载, <<: *u, strategy: round-robin, type: load-balance }
+  - { name: 🔯故障转移, <<: *u, type: fallback }
   - { name: 🇭🇰香港自动, <<: *u, hidden: true, filter: (?i)🇭🇰|\\bHK\\b|香港|Hong Kong }
   - { name: 🇹🇼台湾自动, <<: *u, hidden: true, filter: '(?i)🇹🇼|\bTW\b|台湾|Taiwan|Tai wan' }
   - { name: 🇯🇵日本自动, <<: *u, hidden: true, filter: '(?i)🇯🇵|\bJP\b|日本|Japan' }
   - { name: 🇺🇸美国自动, <<: *u, hidden: true, filter: '(?i)🇺🇸|\bUS\b|美国|United States|CT' }
   - { name: 🇸🇬新加坡自动, <<: *u, hidden: true, filter: '(?i)🇸🇬|\bSG\b|新加坡|Singapore' }
   - { name: 🇰🇷韩国自动, <<: *u, hidden: true, filter: '(?i)🇰🇷|\bKR\b|韩国|South Korea' }
-  - { name: 🌐其它地区, <<: *u, type: select, exclude-filter: '(?i)^.*(?:🎯全局直连|🚫拒绝连接|🇨🇳|\bCN\b|中国|China|
-        ‎|🇭🇰|\bHK\b|香港|Hong Kong|
-        ‎|🇹🇼|\bTW\b|台湾|Taiwan|Tai wan|
-        ‎|🇯🇵|\bJP\b|日本|Japan|
-        ‎|🇺🇸|\bUS\b|美国|United States|CT|
-        ‎|🇸🇬|\bSG\b|新加坡|Singapore|
-        ‎|🇰🇷|\bKR\b|韩国|South Korea).*$' }
-  - { name: GLOBAL, type: select, include-all: true, proxies: [ 🚀全球代理, 🟢手动选择, 🪧广告拦截, 💧泄漏拦截, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 🌐其它地区 ], icon: https://cdn.jsdmirror.cn/gh/Kwisma/cf-worker-mihomo@main/icon/webp/100/GLOBAL.webp, exclude-filter: "(?i)🎯全局直连|🚫拒绝连接" }
+  - { name: GLOBAL, type: select, include-all: true, proxies: [ 🚀全球代理, 🟢手动选择, 🪧广告拦截, 💧泄漏拦截, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移 ], icon: https://cdn.jsdmirror.cn/gh/Kwisma/cf-worker-mihomo@main/icon/webp/100/GLOBAL.webp }
 rules:
   - GEOSITE,private,🎯全球直连
   - RULE-SET,Advertising-ads,🪧广告拦截
