@@ -37,14 +37,14 @@
             {
                 "tag": "Direct-dns",
                 "address_resolver": "ali-dns-udp",
-                "address": "https://dns.alidns.com/dns-query",
+                "address": "quic://dns.alidns.com",
                 "detour": "🎯 全球直连",
                 "strategy": "ipv4_only"
             },
             {
                 "tag": "Proxy-dns",
                 "address_resolver": "google-dns-udp",
-                "address": "https://dns.google/dns-query",
+                "address": "h3://dns.google/dns-query",
                 "detour": "🚀 节点选择",
                 "strategy": "prefer_ipv4"
             },
