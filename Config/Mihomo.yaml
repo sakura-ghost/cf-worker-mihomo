@@ -236,48 +236,62 @@ tun:
 dns:
   enable: true # 启用 DNS 模块
   cache-algorithm: arc # 缓存算法，参数:lru 最近最少使用，arc 自适应替换缓存
-  prefer-h3: false # DOH 优先使用 http/3
+  prefer-h3: true # DOH 优先使用 http/3
   use-hosts: true # 使用配置中的 hosts 文件条目
   use-system-hosts: true # 使用系统的 hosts 文件条目
-  respect-rules: true # dns 连接遵守路由规则，需配置 proxy-server-nameserver, 强烈不建议和 prefer-h3 一起使用
+  respect-rules: false # dns 连接遵守路由规则，需配置 proxy-server-nameserver, 强烈不建议和 prefer-h3 一起使用
   listen: 0.0.0.0:1053 # 本地 DNS 监听端口，默认是 1053 端口
   ipv6: true # 启用 IPv6 DNS 解析，避免 IPv6 地址的解析请求
   default-nameserver:
     - quic://223.5.5.5 # 阿里 DNS 解析 DNS 域名
-    - quic://223.6.6.6 # 阿里 DNS 解析 DNS 域名
+    - quic://223.6.6.6
   enhanced-mode: fake-ip # 启用增强模式 redir-host or fake-ip
-  fake-ip-range: 198.18.0.0/16 # fake-ip 池设置
+  fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
     - RULE-SET:Private,Fakeip_Filter
+    - dns.alidns.com
+    - cloudflare-dns.com
+    - dns.google
+    - dns.adguard-dns.com
+    - dns.nextdns.io
+    - public.dns.iij.jp
+    - dns0.eu
+    - dns.18bit.cn
+    - 2025.dns1.top
   nameserver-policy:
-    cdn.jsdmirror.com:
-      - "quic://223.5.5.5"
-      - "quic://223.6.6.6"
     "+.jp":
       - "https://public.dns.iij.jp/dns-query#h3=true" # IIJ （日本） DNS over H3
     "+.hk":
       - "quic://dns.nextdns.io" # NextDNS（香港） DNS over DOQ
     "+.eu":
       - "quic://dns0.eu" # 公共（欧洲） DNS over DOQ
-    "geosite:private,CN":
-      - "quic://223.5.5.5" # 阿里 DNS over DOQ
-      - "quic://223.6.6.6"
+    "RULE-SET:Private,China":
+#      - "quic://223.5.5.5" # 阿里 DNS over DOQ
+#      - "quic://223.6.6.6"
+      - "quic://dns.18bit.cn" # 18bit DNS over DOQ
+      - "quic://2025.dns1.top" # 关圣 DNS over DOQ
+      - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   nameserver:
-    - "https://1.1.1.1/dns-query#h3=true" # Cloudflare DNS over H3
-    - "https://1.0.0.1/dns-query#h3=true"
-    - "https://8.8.8.8/dns-query#h3=true" # Google DNS over H3
-    - "https://8.8.4.4/dns-query#h3=true"
+#    - "https://1.1.1.1/dns-query#h3=true" # Cloudflare DNS over H3
+#    - "https://1.0.0.1/dns-query#h3=true"
+#    - "https://8.8.8.8/dns-query#h3=true" # Google DNS over H3
+#    - "https://8.8.4.4/dns-query#h3=true"
 #    - "https://185.222.222.222/dns-query#h3=true" # SB DNS over H3
 #    - "https://45.11.45.11/dns-query#h3=true"
-    - "quic://94.140.15.15" # AdGuard DNS over DOQ
-    - "quic://94.140.14.140"
+#    - "quic://94.140.15.15" # AdGuard DNS over DOQ
+#    - "quic://94.140.14.140"
+    - "quic://dns.adguard-dns.com" # AdGuard DNS over DOQ
+    - "https://cloudflare-dns.com/dns-query#h3=true" # Cloudflare DNS over H3
+    - "https://dns.google/dns-query#h3=true" # Google DNS over H3
   proxy-server-nameserver: # 代理节点域名解析服务器，仅用于解析代理节点的域名
-    - "quic://223.5.5.5" # 阿里 DNS over DOQ
-    - "quic://223.6.6.6"
+#    - "quic://223.5.5.5" # 阿里 DNS over DOQ
+#    - "quic://223.6.6.6"
+    - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   direct-nameserver: #  用于直连出口域名解析的 DNS 服务器
-    - "quic://223.5.5.5" # 阿里 DNS over DOQ
-    - "quic://223.6.6.6"
+#    - "quic://223.5.5.5" # 阿里 DNS over DOQ
+#    - "quic://223.6.6.6"
+    - "quic://dns.alidns.com" # 阿里 DNS over DOQ
   direct-nameserver-follow-policy: true # 是否遵循 nameserver-policy，默认为不遵守，仅当 direct-nameserver 不为空时生效
 
 proxy-groups:
