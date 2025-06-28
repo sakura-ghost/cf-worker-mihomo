@@ -46,14 +46,16 @@ export async function getMihomo_Proxies_Data(urls, userAgent, subapi) {
         } else {
             const apiurl = buildApiUrl(urls[0], subapi, 'clash');
             res = await fetchResponse(apiurl, userAgent);
-            res.data.proxies.forEach((p) => {
-                p.udp = true; // 默认开启UDP
-            });
-            return {
-                status: res.status,
-                headers: res.headers,
-                data: res.data
-            };
+            if (res?.data?.proxies && Array.isArray(res?.data?.proxies) && res?.data?.proxies?.length > 0) {
+                res.data.proxies.forEach((p) => {
+                    p.udp = true; // 默认开启UDP
+                });
+                return {
+                    status: res.status,
+                    headers: res.headers,
+                    data: res.data
+                };
+            }
         }
     } else {
         const proxies_list = [];
