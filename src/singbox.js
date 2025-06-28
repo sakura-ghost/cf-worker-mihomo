@@ -1,12 +1,16 @@
 import { splitUrlsAndProxies, Top_Data, Rule_Data, fetchResponse, buildApiUrl } from './utils.js';
 export async function getsingbox_config(urls, rule, userAgent, subapi) {
     let top
-    if (/singbox|sing-box|sfa/i.test(userAgent) && /1.11./i.test(userAgent)) {
-        top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json'
-    } else if (/singbox|sing-box|sfa/i.test(userAgent) && /1.12./i.test(userAgent)) {
-        top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json'
+    if (/singbox|sing-box|sfa/i.test(userAgent)) {
+        if (/1.11./i.test(userAgent)) {
+            top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json'
+        } else if (/1.12./i.test(userAgent)) {
+            top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json'
+        } else {
+            throw new Error(`不支持的 Singbox 版本`);
+        }
     } else {
-        throw new Error(`不支持的 Singbox 版本，请使用 1.11.X 或 1.12.X`);
+        throw new Error('不支持的客户端');
     }
     urls = splitUrlsAndProxies(urls)
     const [Singbox_Top_Data, Singbox_Rule_Data, Singbox_Outbounds_Data] = await Promise.all([
