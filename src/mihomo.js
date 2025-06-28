@@ -15,7 +15,7 @@ export async function getmihomo_config(urls, rule, top, userAgent, subapi) {
     if (Mihomo_Proxies_Data.data?.proxies?.length > 0) {
         Mihomo_Rule_Data.data.proxies = [...(Mihomo_Rule_Data?.data?.proxies || []), ...Mihomo_Proxies_Data.data?.proxies];
     }
-    Mihomo_Top_Data.data['proxy-providers'] = Mihomo_Proxies_Data.data.providers || {};
+    Mihomo_Top_Data.data['proxy-providers'] = Mihomo_Proxies_Data.data.providers;
     applyTemplate(Mihomo_Top_Data.data, Mihomo_Rule_Data.data);
     return {
         status: Mihomo_Proxies_Data.status,
@@ -71,7 +71,7 @@ export async function getMihomo_Proxies_Data(urls, userAgent, subapi) {
                     status: res.status,
                     headers: res.headers,
                 });
-                proxies_list.push(res.data.proxies);
+                proxies_list.push(...res.data.proxies);
             } else {
                 const apiurl = buildApiUrl(urls[i], subapi, 'clash');
                 res = await fetchResponse(apiurl, userAgent);
@@ -84,7 +84,7 @@ export async function getMihomo_Proxies_Data(urls, userAgent, subapi) {
                         status: res.status,
                         headers: res.headers,
                     });
-                    proxies_list.push(res.data.proxies);
+                    proxies_list.push(...res.data.proxies);
                 }
             }
         }
