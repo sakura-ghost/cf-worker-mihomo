@@ -396,6 +396,7 @@ export async function getFakePage(image, button_url, button_text, configdata) {
         
         /* 新增模板选择器样式 - 单展开面板版本 */
         .template-selector {
+            position: relative;
             margin-bottom: 1.5rem;
         }
         
@@ -427,12 +428,16 @@ export async function getFakePage(image, button_url, button_text, configdata) {
         }
         
         .template-options {
+            position: absolute;
+            top: 100%; /* 紧贴 toggle 下面 */
+            left: 0;
+            width: 100%;
+            z-index: 10;
             background-color: white;
             border-radius: 0 0 10px 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             display: none;
-            margin-top: 5px;
-            max-height: 200px; /* 可根据需要调整高度 */
+            max-height: 200px;
             overflow-y: auto;
         }
         
