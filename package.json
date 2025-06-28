@@ -16,8 +16,8 @@
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.8.47",
-		"wrangler": "^4.22.0",
-		"vercel": "^44.2.7"
+		"vercel": "^44.2.7",
+		"wrangler": "^4.22.0"
 	},
 	"dependencies": {
 		"@koa/router": "^13.1.0",

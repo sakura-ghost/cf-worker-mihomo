@@ -117,4 +117,4 @@ npm run deploy
 - 发起 [Pull Request](https://github.com/Kwisma/cf-worker-mihomo/pulls)
 
 ## 📜 开源协议
-[CC BY-NC](LICENSE) © 2025 Kwisma
+[MIT License](LICENSE) © 2025 Kwisma
