@@ -15,19 +15,18 @@ export async function getsingbox_config(urls, rule, userAgent, subapi) {
         getSingbox_Outbounds_Data(urls, subapi, userAgent)
     ]);
 
-    if (!Singbox_Outbounds_Data.data?.outbounds?.length) throw new Error(`节点为空，请使用有效订阅`);
+    if (Singbox_Outbounds_Data.data?.outbounds?.length === 0) throw new Error(`节点为空，请使用有效订阅`);
     Singbox_Outbounds_Data.data.outbounds = outboundArrs(Singbox_Outbounds_Data.data);
-    const templatejson = Singbox_Rule_Data.data;
     const ApiUrlname = [];
     Singbox_Outbounds_Data.data.outbounds.forEach((res) => {
         ApiUrlname.push(res.tag);
     });
     // 策略组处理
-    templatejson.outbounds = loadAndSetOutbounds(templatejson.outbounds, ApiUrlname);
+    Singbox_Rule_Data.data.outbounds = loadAndSetOutbounds(Singbox_Rule_Data.data.outbounds, ApiUrlname);
     // 合并 outbounds
-    templatejson.outbounds.push(...Singbox_Outbounds_Data.data.outbounds)
+    Singbox_Rule_Data.data.outbounds.push(...Singbox_Outbounds_Data.data.outbounds);
     // 应用模板
-    applyTemplate(Singbox_Top_Data.data, templatejson);
+    applyTemplate(Singbox_Top_Data.data, Singbox_Rule_Data.data);
 
     return {
         status: Singbox_Outbounds_Data.status,
@@ -128,22 +127,23 @@ export function outboundArrs(data) {
 export function loadAndSetOutbounds(Outbounds, ApiUrlname) {
     Outbounds.forEach(res => {
         // 从完整 outbound 名称开始匹配
-        let matchedOutbounds = [...ApiUrlname];
+        let matchedOutbounds;
         let hasValidAction = false;
         res.filter?.forEach(ac => {
             // 转换为 RegExp 对象
             const keywordReg = new RegExp(ac.keywords) || '';
             if (ac.action === 'include') {
                 // 只保留匹配的
-                matchedOutbounds = matchedOutbounds.filter(name => keywordReg.test(name));
-                hasValidAction = true
+                matchedOutbounds = ApiUrlname.filter(name => keywordReg.test(name));
+                hasValidAction = true;
             } else if (ac.action === 'exclude') {
                 // 移除匹配的
-                matchedOutbounds = matchedOutbounds.filter(name => !keywordReg.test(name));
+                matchedOutbounds = ApiUrlname.filter(name => !keywordReg.test(name));
                 hasValidAction = true
             } else if (ac.action === 'all') {
                 // 全部保留
-                hasValidAction = true
+                matchedOutbounds = ApiUrlname;
+                hasValidAction = true;
             }
         });
         if (hasValidAction) {

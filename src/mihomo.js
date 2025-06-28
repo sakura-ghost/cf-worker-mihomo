@@ -9,19 +9,14 @@ export async function getmihomo_config(urls, rule, top, userAgent, subapi) {
         Rule_Data(rule),
         getMihomo_Proxies_Data(urls, userAgent, subapi)
     ]);
-    console.log('Mihomo_Proxies_Data', Mihomo_Proxies_Data.data?.proxies.length);
     if (Mihomo_Proxies_Data.data?.proxies?.length === 0 && Object.keys(Mihomo_Proxies_Data.data?.providers)?.length === 0) {
         throw new Error('节点为空');
     }
-    console.log('Mihomo_Rule_Data', Mihomo_Rule_Data.data['proxy-groups']?.length);
     if (Mihomo_Proxies_Data.data?.proxies?.length > 0) {
         Mihomo_Rule_Data.data.proxies = [...(Mihomo_Rule_Data?.data?.proxies || []), ...Mihomo_Proxies_Data.data?.proxies];
     }
-    console.log('Mihomo_Top_Data', Mihomo_Top_Data.data.length);
     Mihomo_Top_Data.data['proxy-providers'] = Mihomo_Proxies_Data.data.providers || {};
-    console.log('Mihomo_Rule_Data', Mihomo_Rule_Data.data.length);
     applyTemplate(Mihomo_Top_Data.data, Mihomo_Rule_Data.data);
-    console.log('Mihomo_Top_Data', Mihomo_Top_Data.data.length);
     return {
         status: Mihomo_Proxies_Data.status,
         headers: Mihomo_Proxies_Data.headers,
