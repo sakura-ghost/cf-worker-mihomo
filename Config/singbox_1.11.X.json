@@ -28,19 +28,18 @@
         "servers": [
             {
                 "tag": "ali-dns-udp",
-                "address": "223.5.5.5",
-                "detour": "🎯 全球直连"
+                "address": "223.5.5.5"
             },
             {
                 "tag": "DIRECT-DNS",
                 "address_resolver": "ali-dns-udp",
-                "address": "https://dns.alidns.com/dns-query",
+                "address": "quic://dns.alidns.com",
                 "detour": "🎯 全球直连"
             },
             {
                 "tag": "PROXY-DNS",
                 "address_resolver": "ali-dns-udp",
-                "address": "https://dns.google/dns-query",
+                "address": "h3://dns.google/dns-query",
                 "detour": "🚀 节点选择"
             },
             {
@@ -62,6 +61,9 @@
                 "server": "PROXY-DNS"
             },
             {
+                "domain": [
+                    "dns.alidns.com"
+                ],
                 "rule_set": [
                     "CN",
                     "Private"
@@ -107,7 +109,7 @@
             "tag": "mixed-in",
             "type": "mixed",
             "listen": "0.0.0.0",
-            "listen_port": 20122
+            "listen_port": 20120
         }
     ],
     "route": {

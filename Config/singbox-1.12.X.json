@@ -36,20 +36,19 @@
             {
                 "type": "udp",
                 "tag": "Ali-DNS-UDP",
-                "detour": "🎯 全球直连",
                 "server": "223.5.5.5",
                 "server_port": 53
             },
             {
-                "type": "https",
+                "type": "quic",
                 "tag": "DIRECT-DNS",
                 "detour": "🎯 全球直连",
-                "server_port": 443,
+                "server_port": 853,
                 "server": "dns.alidns.com",
                 "domain_resolver": "Ali-DNS-UDP"
             },
             {
-                "type": "https",
+                "type": "h3",
                 "tag": "PROXY-DNS",
                 "detour": "🚀 节点选择",
                 "server_port": 443,
@@ -73,6 +72,9 @@
                 "server": "PROXY-DNS"
             },
             {
+                "domain": [
+                    "dns.alidns.com"
+                ],
                 "rule_set": [
                     "CN",
                     "Private"
@@ -119,7 +121,7 @@
             "tag": "mixed-in",
             "type": "mixed",
             "listen": "0.0.0.0",
-            "listen_port": 20122
+            "listen_port": 20120
         }
     ],
     "outbounds": [],

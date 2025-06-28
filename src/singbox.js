@@ -194,14 +194,14 @@ export function applyTemplate(top, rule) {
             "type": "remote",
             "url": "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs",
             "format": "binary",
-            "download_detour": "🎯 全局直连"
+            "download_detour": "🎯 全球直连"
         },
         {
             "tag": "CN",
             "type": "remote",
             "url": "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
             "format": "binary",
-            "download_detour": "🎯 全局直连"
+            "download_detour": "🎯 全球直连"
         }
     )
 }
