@@ -34,10 +34,10 @@
     "dns": {
         "servers": [
             {
-                "type": "udp",
+                "type": "quic",
                 "tag": "Ali-DNS-UDP",
                 "server": "223.5.5.5",
-                "server_port": 53
+                "server_port": 853
             },
             {
                 "type": "quic",

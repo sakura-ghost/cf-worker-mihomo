@@ -28,7 +28,7 @@
         "servers": [
             {
                 "tag": "ali-dns-udp",
-                "address": "223.5.5.5"
+                "address": "quic://223.5.5.5"
             },
             {
                 "tag": "DIRECT-DNS",
