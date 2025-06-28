@@ -73,9 +73,6 @@
                 "server": "PROXY-DNS"
             },
             {
-                "domain": [
-                    "dns.alidns.com"
-                ],
                 "rule_set": [
                     "CN",
                     "Private"
@@ -121,7 +118,7 @@
         {
             "tag": "mixed-in",
             "type": "mixed",
-            "listen": "0.0.0.0",
+            "listen": "::",
             "listen_port": 20120
         }
     ],
