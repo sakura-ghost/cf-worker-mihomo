@@ -183,9 +183,9 @@ export function loadAndSetOutbounds(Outbounds, ApiUrlname) {
     return filteredOutbounds
 }
 export function applyTemplate(top, rule) {
-    top.inbounds = rule.inbounds || top.inbounds;
-    top.outbounds = rule.outbounds || [];
     top.route.final = rule?.route?.final || top.route.final;
+    top.inbounds = rule?.inbounds || top.inbounds;
+    top.outbounds = rule?.outbounds || [];
     top.route.rules = rule?.route?.rules || [];
     top.route.rule_set = rule?.route?.rule_set || [];
     top.route.rule_set.push(
