@@ -36,7 +36,7 @@
             {
                 "type": "udp",
                 "tag": "Ali-DNS-UDP",
-                "detour": "🎯 全球直连"
+                "detour": "🎯 全球直连",
                 "server": "223.5.5.5",
                 "server_port": 53
             },
