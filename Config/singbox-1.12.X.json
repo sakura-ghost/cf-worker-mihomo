@@ -111,7 +111,7 @@
                 "http_proxy": {
                     "enabled": false,
                     "server": "127.0.0.1",
-                    "server_port": 8080
+                    "server_port": 20120
                 }
             }
         },
@@ -119,7 +119,7 @@
             "tag": "mixed-in",
             "type": "mixed",
             "listen": "0.0.0.0",
-            "listen_port": 20120
+            "listen_port": 20122
         }
     ],
     "outbounds": [],
