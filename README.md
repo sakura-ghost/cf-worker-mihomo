@@ -1,8 +1,8 @@
-# 🧰 Mihomo（Clash Mate）/ singbox 配置生成工具
+# 🧰 Mihomo（Clash Meta）/ singbox 配置生成工具
 
 ![Mihomo Logo](./icon/icon.png)
 
-Mihomo（Clash Mate）是一款高效的订阅汇聚工具，支持快速生成 Clash/singbox 配置文件，并提供强大的分流与防护功能。
+Mihomo（Clash Meta）是一款高效的订阅汇聚工具，支持快速生成 Clash/singbox 配置文件，并提供强大的分流与防护功能。
 
 ## 🌟 核心特性
 - **智能分流**：全面的规则分流机制
