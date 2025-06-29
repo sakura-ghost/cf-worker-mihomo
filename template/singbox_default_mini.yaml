@@ -27,8 +27,9 @@ route:
     - { rule_set: geosite-tiktok, outbound: 🎵 TikTok }
     - { rule_set: [ geoip-telegram, geosite-telegram ], outbound: 📲 Telegram }
     - { rule_set: [ geoip-netflix, geosite-netflix ], outbound: 🎥 Netflix }
-    - { rule_set: geosite-geolocation-!cn, outbound: 🚀 节点选择 }
-    - { rule_set: [ geoip-cn, geosite-geolocation-cn, geoip-apple, geosite-apple, geosite-microsoft ], outbound: 🎯 全球直连 }
+    - { rule_set: [ geosite-microsoft ], outbound: 🪟 Microsoft }
+    - { rule_set: [ geoip-apple, geosite-apple ], outbound: 🍎 Apple }
+    - { rule_set: [ geoip-cn, geoip-private, geosite-private ], outbound: 🎯 全球直连 }
   rule_set:
     # MetaCubeX 规则集
     - { tag: geosite-category-ads-all, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs, download_detour: 🎯 全球直连 }
@@ -40,9 +41,8 @@ route:
     - { tag: geosite-netflix, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/netflix.srs, download_detour: 🎯 全球直连 }
     - { tag: geosite-apple, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/apple.srs, download_detour: 🎯 全球直连 }
     - { tag: geosite-microsoft, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/microsoft.srs, download_detour: 🎯 全球直连 }
-    - { tag: geosite-geolocation-!cn, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs, download_detour: 🎯 全球直连 }
-    - { tag: geosite-geolocation-cn, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-cn@cn.srs, download_detour: 🎯 全球直连 }
-    - { tag: geosite-cn, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/cn.srs, download_detour: 🎯 全球直连 }
+    - { tag: geosite-private, type: remote, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs, format: binary, download_detour: 🎯 全球直连 }
+    - { tag: geoip-private, type: remote, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/private.srs, format: binary, download_detour: 🎯 全球直连 }    
     - { tag: geoip-google, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/google.srs, download_detour: 🎯 全球直连 }
     - { tag: geoip-telegram, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/telegram.srs, download_detour: 🎯 全球直连 }
     - { tag: geoip-netflix, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/netflix.srs, download_detour: 🎯 全球直连 }
@@ -61,6 +61,8 @@ outbounds:
   - { tag: 💧 泄漏拦截, type: selector, interrupt_exist_connections: true, outbounds: [ 🚫 拒绝连接, 🎯 全局直连, 🚀 节点选择 ] }
   - { tag: 🔎 HttpDNS, type: selector, interrupt_exist_connections: true, outbounds: [ 🚫 拒绝连接, 🎯 全局直连, 🚀 节点选择 ] }
   - { tag: 🎈 自动选择, type: urltest, interrupt_exist_connections: true, url: https://www.gstatic.com/generate_204, interval: 3m, tolerance: 150, outbounds: [], filter: [ { action: all, keywords: [] } ] }
+  - { tag: 🍎 Apple, <<: *proxy }
+  - { tag: 🪟 Microsoft, <<: *proxy }
   - { tag: 🔍 Google, <<: *proxy }
   - { tag: 📹 YouTube, <<: *proxy }
   - { tag: 🤖 AI, <<: *proxy }
