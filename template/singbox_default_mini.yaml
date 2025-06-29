@@ -15,11 +15,7 @@ direct: &direct { type: selector, interrupt_exist_connections: true, outbounds: 
 ############ end of delete ############
 
 route:
-  auto_detect_interface: true
   final: 🚀 节点选择
-  default_domain_resolver:
-    server: DIRECT-DNS
-    strategy: prefer_ipv4
   rules:
     - { domain: [ cdn.jsdmirror.com ], outbound: 🎯 全球直连 }
     - { rule_set: geosite-category-ads-all, outbound: 🪧 广告拦截 }
