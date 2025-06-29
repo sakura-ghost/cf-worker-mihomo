@@ -1,4 +1,4 @@
-
+import fetch from 'node-fetch';
 import YAML from 'yaml';
 export const backimg = 'https://t.alcy.cc/ycy';
 export const subapi = 'https://url.v1.mk';
