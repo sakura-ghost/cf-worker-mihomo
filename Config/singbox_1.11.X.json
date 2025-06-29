@@ -1,7 +1,8 @@
 {
     "log": {
         "disabled": false,
-        "level": "warn",
+        "level": "info",
+        "output": "",
         "timestamp": true
     },
     "experimental": {
