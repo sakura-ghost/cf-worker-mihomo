@@ -85,8 +85,8 @@
                 "server": "FAKEIP-DNS"
             }
         ],
-        "disable_cache": false,
-        "disable_expire": false,
+        "disable_cache": true,
+        "disable_expire": true,
         "independent_cache": true,
         "final": "PROXY-DNS",
         "strategy": "prefer_ipv4"

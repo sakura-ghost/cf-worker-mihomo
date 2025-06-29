@@ -84,8 +84,10 @@
                 "rewrite_ttl": 1
             }
         ],
-        "final": "PROXY-DNS",
+        "disable_cache": true,
+        "disable_expire": true,
         "independent_cache": true,
+        "final": "PROXY-DNS",
         "strategy": "prefer_ipv4"
     },
     "inbounds": [

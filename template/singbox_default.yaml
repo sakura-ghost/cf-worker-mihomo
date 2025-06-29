@@ -22,8 +22,9 @@ route:
     strategy: prefer_ipv4
   rules:
     - { action: sniff }
-    - { protocol: dns, action: hijack-dns }
+    - { type: logical, mode: or, rules: [ { port: [ 53 ] }, { protocol: dns } ], action: hijack-dns }
     - { action: resolve }
+    - { action: route-options, udp_disable_domain_unmapping: true, udp_connect: true, udp_timeout: 5m }
     - { ip_is_private: true, outbound: 🎯 全球直连 }
     - { clash_mode: direct, outbound: 🎯 全球直连 }
     - { clash_mode: global, outbound: 🚀 节点选择 }
