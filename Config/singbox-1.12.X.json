@@ -128,7 +128,56 @@
             "server": "DIRECT-DNS",
             "strategy": "prefer_ipv4"
         },
-        "rules": [],
-        "rule_set": []
+        "rules": [
+            {
+                "action": "sniff"
+            },
+            { 
+                "type": "logical", 
+                "mode": "or", 
+                "rules": [
+                  { "port": [53] },
+                  { "protocol": "dns" }
+                ], 
+                "action": "hijack-dns"
+            },
+            { 
+                "action": "resolve"
+            },
+            { 
+                "action": "route-options", 
+                "udp_disable_domain_unmapping": true, 
+                "udp_connect": true, 
+                "udp_timeout": "5m"
+            },
+            {
+                "ip_is_private": true,
+                "outbound": "🎯 全球直连"
+            },
+            {
+                "clash_mode": "direct",
+                "outbound": "🎯 全球直连"
+            },
+            {
+                "clash_mode": "global",
+                "outbound": "🚀 节点选择"
+            }
+        ],
+        "rule_set": [
+            {
+                "tag": "Private",
+                "type": "remote",
+                "url": "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs",
+                "format": "binary",
+                "download_detour": "🎯 全球直连"
+            },
+            {
+                "tag": "CN",
+                "type": "remote",
+                "url": "https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+                "format": "binary",
+                "download_detour": "🎯 全球直连"
+            }
+        ]
     }
 }
