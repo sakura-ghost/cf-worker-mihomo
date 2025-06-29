@@ -128,6 +128,9 @@
                 "action": "sniff"
             },
             { 
+                "action": "resolve"
+            },
+            { 
                 "type": "logical", 
                 "mode": "or", 
                 "rules": [
@@ -135,10 +138,6 @@
                   { "protocol": "dns" }
                 ], 
                 "action": "hijack-dns"
-            },
-            { 
-                "action": "resolve",
-                "disable_cache": true
             },
             { 
                 "action": "route-options", 
