@@ -7756,7 +7756,7 @@ async function Rule_Data(rule) {
   return await fetchResponse(rule);
 }
 __name(Rule_Data, "Rule_Data");
-async function getFakePage(image, button_url, button_text, configdata) {
+async function getFakePage(image, button_url, button_text, configdata, subapi2) {
   return `
 <!DOCTYPE html>
 <html>
@@ -8239,8 +8239,9 @@ async function getFakePage(image, button_url, button_text, configdata) {
 
 
         <div class="input-group">
-            <div style="display: flex; align-items: center;">
-                <label for="result">\u8BA2\u9605\u5730\u5740</label>
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <span>\u8F6C\u6362\u540E\u7AEF\uFF1A${subapi2}</span>
+                <label for="result">\u8BA2\u9605\u5730\u5740\uFF1A</label>
             </div>
             <input type="text" id="result" readonly onclick="copyToClipboard()">
             <label id="qrcode" style="margin: 15px 10px -15px 10px;"></label>
@@ -8947,7 +8948,7 @@ var index_default = {
       urls = urls[0].split(",").map((u) => u.trim());
     }
     if (urls.length === 0 || urls[0] === "") {
-      return new Response(await getFakePage(IMG, beianurl, beian, configs()), {
+      return new Response(await getFakePage(IMG, beianurl, beian, configs(), sub), {
         status: 200,
         headers: {
           "Content-Type": "text/html; charset=utf-8"
