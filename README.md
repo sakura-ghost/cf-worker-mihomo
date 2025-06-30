@@ -71,14 +71,14 @@ npm run deploy
 
 配置选项：
 - **构建命令**：`npm run build:workers`
-- **部署命令**：`npm run deploy:workers`
+- **部署命令**：`npx wrangler deploy --keep-vars`
 
 #### 方法二：手动部署
 1. 部署 CF Worker：
    - 在 CF Worker 控制台中创建一个新的 Worker。
-   - 将 [worker.js](./worker.js) 的内容粘贴到 Worker 编辑器中。
    - 设置 > 运行时 > 兼容性标志 设置为 `nodejs_compat`
-   - 再次部署
+   - 将 [worker.js](./worker.js) 的内容粘贴到 Worker 编辑器中。
+   - 保存部署
 2. 给 workers绑定 自定义域： 
    - 在 workers控制台的 `触发器`选项卡，下方点击 `添加自定义域`。
    - 填入你已转入 CF 域名解析服务的次级域名，例如:`mihomo.haxtop.ggff.net`后 点击`添加自定义域`，等待证书生效即可。
