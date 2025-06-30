@@ -77,7 +77,7 @@ npm run deploy
 1. 部署 CF Worker：
    - 在 CF Worker 控制台中创建一个新的 Worker。
    - 设置 > 运行时 > 兼容性标志 设置为 `nodejs_compat`
-   - 将 [worker.js](./worker.js) 的内容粘贴到 Worker 编辑器中。
+   - 将 [_worker.js](./_worker.js) 的内容粘贴到 Worker 编辑器中。
    - 保存部署
 2. 给 workers绑定 自定义域： 
    - 在 workers控制台的 `触发器`选项卡，下方点击 `添加自定义域`。
