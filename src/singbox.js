@@ -193,7 +193,7 @@ export function applyTemplate(top, rule) {
         if (item?.tag) mergedMap.set(item.tag, item);
     }
     top.inbounds = rule?.inbounds || top.inbounds;
-    top.outbounds = rule?.outbounds || [];
+    top.outbounds = [...(Array.isArray(top.outbounds) ? top.outbounds : []), ...(Array.isArray(rule?.outbounds) ? rule.outbounds : [])];
     top.route.final = rule?.route?.final || top.route.final;
     top.route.rules = [...(Array.isArray(top.route.rules) ? top.route.rules : []), ...(Array.isArray(rule?.route?.rules) ? rule.route.rules : [])];
     top.route.rule_set = Array.from(mergedMap.values());

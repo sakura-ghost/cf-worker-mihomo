@@ -120,7 +120,16 @@
             "listen_port": 20120
         }
     ],
-    "outbounds": [],
+    "outbounds": [
+        {
+            "tag": "🎯 全局直连",
+            "type": "direct"
+        },
+        {
+            "tag": "🚫 拒绝连接",
+            "type": "block"
+        }
+    ],
     "route": {
         "auto_detect_interface": true,
         "final": "🚀 节点选择",

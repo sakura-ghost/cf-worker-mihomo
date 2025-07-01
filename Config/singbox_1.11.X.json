@@ -120,6 +120,23 @@
             "listen_port": 20120
         }
     ],
+    "outbounds": [
+        {
+            "tag": "🎯 全局直连",
+            "type": "direct"
+        },
+        {
+            "tag": "🚫 拒绝连接",
+            "type": "socks",
+            "server": "127.0.0.1",
+            "server_port": 1024,
+            "version": "5",
+            "username": "sekai",
+            "password": "admin",
+            "network": "udp",
+            "udp_over_tcp": false
+        }
+    ],
     "route": {
         "auto_detect_interface": true,
         "final": "🚀 节点选择",
@@ -175,6 +192,5 @@
                 "download_detour": "🎯 全球直连"
             }
         ]
-    },
-    "outbounds": []
+    }
 }
