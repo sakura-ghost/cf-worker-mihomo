@@ -7675,6 +7675,7 @@ var subapi = "https://url.v1.mk";
 var mihomo_top = "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/Config/Mihomo_lite.yaml";
 var singbox_1_11 = "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json";
 var singbox_1_12 = "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json";
+var singbox_1_12_alpha = "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.alpha.json";
 var beiantext = base64DecodeUtf8("6JCMSUNQ5aSHMjAyNTAwMDHlj7c=");
 var beiandizi = atob("aHR0cHM6Ly90Lm1lL01hcmlzYV9rcmlzdGk=");
 function base64DecodeUtf8(base64) {
@@ -8789,7 +8790,7 @@ async function getsingbox_config(urls, rule, top_default, userAgent, subapi2) {
     if (alphaMatch && !matched) {
       const num = parseInt(alphaMatch[1], 10);
       if (num >= 0 && num <= 23) {
-        top = top_default.singbox_1_11;
+        top = top_default.singbox_1_12_alpha;
         matched = true;
       }
     }
@@ -8980,7 +8981,8 @@ var index_default = {
     const Mihomo_default = env2.MIHOMO || mihomo_top;
     const Singbox_default = {
       singbox_1_11: env2.SINGBOX_1_11 || singbox_1_11,
-      singbox_1_12: env2.SINGBOX_1_12 || singbox_1_12
+      singbox_1_12: env2.SINGBOX_1_12 || singbox_1_12,
+      singbox_1_12_alpha: env2.SINGBOX_1_12_ALPHA || singbox_1_12_alpha
     };
     const beian = env2.BEIAN || beiantext;
     const beianurl = env2.BEIANURL || beiandizi;
