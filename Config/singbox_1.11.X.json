@@ -142,26 +142,32 @@
         "final": "🚀 节点选择",
         "rules": [
             {
-                "action": "sniff"
-            },
-            { 
-                "action": "resolve"
-            },
-            { 
-                "type": "logical", 
-                "mode": "or", 
-                "rules": [
-                  { "port": [53] },
-                  { "protocol": "dns" }
-                ], 
-                "action": "hijack-dns"
-            },
-            { 
-                "action": "route-options", 
-                "udp_disable_domain_unmapping": true, 
-                "udp_connect": true, 
+                "action": "route-options",
+                "udp_disable_domain_unmapping": true,
+                "udp_connect": true,
                 "udp_timeout": "5m",
                 "disable_cache": true
+            },
+            {
+                "action": "resolve"
+            },
+            {
+                "action": "sniff"
+            },
+            {
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "port": [
+                            53
+                        ]
+                    },
+                    {
+                        "protocol": "dns"
+                    }
+                ],
+                "action": "hijack-dns"
             },
             {
                 "ip_is_private": true,
