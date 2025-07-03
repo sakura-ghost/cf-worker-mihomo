@@ -1,11 +1,11 @@
 import { splitUrlsAndProxies, Top_Data, Rule_Data, fetchResponse, buildApiUrl } from './utils.js';
-export async function getsingbox_config(urls, rule, userAgent, subapi) {
+export async function getsingbox_config(urls, rule, top_default, userAgent, subapi) {
     let top
     if (/singbox|sing-box|sfa/i.test(userAgent)) {
         if (/1.11.[0-9]|1.12.0-beta.[0-9]\b/i.test(userAgent)) {
-            top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json'
+            top = top_default.singbox_1_11
         } else if (/1.12.[0-9]/i.test(userAgent)) {
-            top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json'
+            top = top_default.singbox_1_12
         } else {
             throw new Error(`不支持的 Singbox 版本`);
         }
