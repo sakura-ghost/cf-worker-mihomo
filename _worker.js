@@ -8800,11 +8800,11 @@ async function getsingbox_config(urls, rule, top_default, userAgent, subapi2) {
         matched = true;
       }
     }
-    if (v111Match) {
+    if (v111Match && !matched) {
       top = top_default.singbox_1_11;
       matched = true;
     }
-    if (v112Match) {
+    if (v112Match && !matched) {
       top = top_default.singbox_1_12;
       matched = true;
     }
