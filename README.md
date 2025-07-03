@@ -21,6 +21,9 @@ Mihomo（Clash Meta）是一款高效的订阅汇聚工具，支持快速生成 
 - **singbox**
   - 支持 1.11.x 、1.12.x 版本
   - 自适应版本，生成对应版本的配置
+  - iOS版本 无弹窗
+  - 谷歌版本 无弹窗
+  - GitHub版本 无弹窗
   - 启用ip路由
   - 1.12.x 强制启用 `tls` 分段处理
 - **mihomo**
@@ -132,6 +135,7 @@ npm run deploy
 | `BEIANURL`   | 备案跳转链接        | `https://t.me/Marisa_kristi`                                   |
 | `SINGBOX_1_11` | signbox配置模板 | `https://raw.githubusercontent.com/.../singbox_1.11.X.json`|
 | `SINGBOX_1_12` | signbox配置模板 | `https://raw.githubusercontent.com/.../singbox_1.12.X.json`|
+| `SINGBOX_1_12_ALPHA` | signbox配置模板 | `https://raw.githubusercontent.com/.../singbox_1.12.X.alpha.json`|
 ---
 
 ## 🤝 参与贡献

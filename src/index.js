@@ -1,6 +1,6 @@
 import { getmihomo_config } from './mihomo.js';
 import { getsingbox_config } from './singbox.js';
-import { getFakePage, backimg, subapi, mihomo_top, singbox_1_11, singbox_1_12, beiantext, beiandizi, configs } from './utils.js';
+import { getFakePage, backimg, subapi, mihomo_top, singbox_1_11, singbox_1_12, singbox_1_12_alpha, beiantext, beiandizi, configs } from './utils.js';
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
@@ -12,7 +12,8 @@ export default {
         const Mihomo_default = env.MIHOMO || mihomo_top
         const Singbox_default = {
             singbox_1_11: env.SINGBOX_1_11 || singbox_1_11,
-            singbox_1_12: env.SINGBOX_1_12 || singbox_1_12
+            singbox_1_12: env.SINGBOX_1_12 || singbox_1_12,
+            singbox_1_12_alpha: env.SINGBOX_1_12_ALPHA || singbox_1_12_alpha
         };
         const beian = env.BEIAN || beiantext
         const beianurl = env.BEIANURL || beiandizi
