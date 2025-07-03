@@ -23,12 +23,12 @@ export async function getsingbox_config(urls, rule, top_default, userAgent, suba
             }
         }
         // 匹配 1.11.x 版本
-        if (v111Match) {
+        if (v111Match && !matched) {
             top = top_default.singbox_1_11;
             matched = true;
         }
         // 匹配 1.12.x 版本
-        if (v112Match) {
+        if (v112Match && !matched) {
             top = top_default.singbox_1_12;
             matched = true;
         }
