@@ -1,17 +1,44 @@
 import { splitUrlsAndProxies, Top_Data, Rule_Data, fetchResponse, buildApiUrl } from './utils.js';
 export async function getsingbox_config(urls, rule, top_default, userAgent, subapi) {
-    let top
+    let top, matched = false;
     if (/singbox|sing-box|sfa/i.test(userAgent)) {
-        if (/1.11.[0-9]|1.12.0-beta.[0-9]\b/i.test(userAgent)) {
-            top = top_default.singbox_1_11
-        } else if (/1.12.[0-9]/i.test(userAgent)) {
-            top = top_default.singbox_1_12
-        } else {
-            throw new Error(`不支持的 Singbox 版本`);
+        const alphaMatch = userAgent.match(/1\.12\.0\-alpha\.(\d{1,2})\b/);
+        const betaMatch = userAgent.match(/1\.12\.0\-beta\.(\d{1,2})\b/);
+        const v111Match = userAgent.match(/1\.11\.\d+/);
+        const v112Match = userAgent.match(/1\.12\.(\d+)/);
+        // 匹配 1.11 中的 1.12 alpha 版本
+        if (alphaMatch && !matched) {
+            const num = parseInt(alphaMatch[1], 10);
+            if (num >= 0 && num <= 23) {
+                top = top_default.singbox_1_11;
+                matched = true;
+            }
+        }
+        // 匹配 1.11 中的 1.12 beta 版本
+        if (betaMatch && !matched) {
+            const num = parseInt(betaMatch[1], 10);
+            if (num >= 0 && num <= 9) {
+                top = top_default.singbox_1_11;
+                matched = true;
+            }
+        }
+        // 匹配 1.11.x 版本
+        if (v111Match) {
+            top = top_default.singbox_1_11;
+            matched = true;
+        }
+        // 匹配 1.12.x 版本
+        if (v112Match) {
+            top = top_default.singbox_1_12;
+            matched = true;
+        }
+        if (!matched) {
+            throw new Error(`不支持的 Singbox 版本：${userAgent}`);
         }
     } else {
         throw new Error('不支持的客户端');
     }
+
     urls = splitUrlsAndProxies(urls)
     const [Singbox_Top_Data, Singbox_Rule_Data, Singbox_Outbounds_Data] = await Promise.all([
         Top_Data(top),
