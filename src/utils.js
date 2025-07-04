@@ -530,8 +530,58 @@ export async function getFakePage(variable, configdata) {
             user-select: none;
         }
 
+        .tip-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tip-panel {
+            display: none;
+            position: absolute;
+            top: 24px;
+            left: 0;
+            min-width: 260px;
+            max-width: 320px;
+            max-height: 50vh; /* 限制最大高度，防止超出屏幕 */
+            background: white;
+            color: #333;
+            font-size: 14px;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            white-space: normal;
+            line-height: 1.6;
+            overflow-y: auto; /* 增加滚动条支持 */
+            overflow-x: hidden;
+            word-break: break-word;
+        }
+
+        .tip-panel ul {
+            margin: 8px 0;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+        .tip-panel li {
+            margin-bottom: 6px;
+        }
+
+        .tip-panel strong, .tip-panel b {
+            font-weight: bold;
+            color: #4a60ea;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .tip-wrapper.active .tip-panel {
+            display: block;
+        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@keeex/qrcodejs-kx@1.0.2/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
 </head>
 
 <body>
@@ -566,7 +616,10 @@ export async function getFakePage(variable, configdata) {
             <div class="input-group">
                 <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
                     <label for="link" style="margin: 0;">订阅链接</label>
-                    <span class="tip-icon" data-mode="mihomo" title="点击查看提示">!</span>
+                    <div class="tip-wrapper">
+                        <span class="tip-icon" data-mode="mihomo">!</span>
+                        <div class="tip-panel"></div>
+                    </div>
                 </div>
                 <div id="link-container">
                     <div class="link-row">
@@ -589,7 +642,10 @@ export async function getFakePage(variable, configdata) {
             <div class="input-group">
                 <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
                     <label for="link" style="margin: 0;">订阅链接</label>
-                    <span class="tip-icon" data-mode="singbox" title="点击查看提示">!</span>
+                    <div class="tip-wrapper">
+                        <span class="tip-icon" data-mode="singbox">!</span>
+                        <div class="tip-panel"></div>
+                    </div>
                 </div>
                 <div id="link-container-singbox">
                     <div class="link-row">
@@ -601,23 +657,7 @@ export async function getFakePage(variable, configdata) {
 
             <button onclick="generateSingboxLink()">生成Singbox配置</button>
         </div>
-        <div id="tipModal" style="
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 90%;
-            padding: 12px 18px;
-            background: rgba(50, 60, 180, 0.95);
-            color: white;
-            font-size: 14px;
-            border-radius: 8px;
-            z-index: 9999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        ">
-            <div id="tipContent">提示内容</div>
-        </div>
+
 
         <div class="input-group">
             <div style="display: flex; flex-direction: column; align-items: flex-start;">
@@ -714,42 +754,66 @@ export async function getFakePage(variable, configdata) {
 
             const tipTexts = {
                 mihomo: \`
-                    <strong>mihomo 使用提示：</strong><br>
-                    - 支持多个订阅链接，自动合并生成配置<br>
-                    - 可选模板生成 Clash (mihomo) 链接<br>
-                    - 可复制或扫码导入<br>
-                    - 关闭所有覆写功能（不是关闭功能，是关闭覆写）以确保配置正常生效
-                    <strong>配置信息</strong><br>
-                    userAgent: ${variable.userAgent}<br>
-                    转换后端：${variable.sub}<br>
-                    默认: ${variable.Mihomo_default}<br>
+## mihomo 使用提示：
+
+- 支持多个订阅链接，自动合并生成配置
+- 可选模板生成 Clash (mihomo) 链接
+- 可复制或扫码导入
+- 关闭所有覆写功能（不是关闭功能，是关闭覆写）以确保配置正常生效
+
+## 配置信息
+
+**userAgent** ${variable.userAgent}
+
+**转换后端** ${variable.sub}
+
+**默认** ${variable.Mihomo_default}
                 \`,
                 singbox: \`
-                    <strong>singbox 使用提示：</strong><br>
-                    - 支持多个订阅链接，自动合并生成配置<br>
-                    - 适用于 sing-box 客户端<br>
-                    - 支持扫码或链接复制导入
-                    <strong>配置信息</strong><br>
-                    userAgent: ${variable.userAgent}<br>
-                    转换后端：${variable.sub}<br>
-                    1.11: ${variable.Singbox_default.singbox_1_11}<br>
-                    1.12: ${variable.Singbox_default.singbox_1_12}<br>
-                    1.12_alpha: ${variable.Singbox_default.singbox_1_12_alpha}<br>
+## singbox 使用提示：
+
+- 支持多个订阅链接，自动合并生成配置
+- 适用于 sing-box 客户端
+- 支持扫码或链接复制导入
+
+## 配置信息
+
+**userAgent** ${variable.userAgent}
+
+**转换后端** ${variable.sub}
+
+**1.11** ${variable.Singbox_default.singbox_1_11}
+
+**1.12** ${variable.Singbox_default.singbox_1_12}
+
+**1.12_alpha** ${variable.Singbox_default.singbox_1_12_alpha}
                 \`
             };
             // 弹窗提示
             document.querySelectorAll('.tip-icon').forEach(icon => {
-                icon.addEventListener('click', () => {
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation(); // 防止触发全局点击关闭
+
+                    // 关闭所有已展开
+                    document.querySelectorAll('.tip-wrapper').forEach(w => w.classList.remove('active'));
+
+                    const wrapper = icon.closest('.tip-wrapper');
+                    wrapper.classList.toggle('active');
+
+                    const panel = wrapper.querySelector('.tip-panel');
                     const mode = icon.dataset.mode;
-                    tipContent.innerHTML = tipTexts[mode] || '暂无提示内容';
 
-                    tipModal.style.display = 'block';
+                    // 使用 marked 渲染 Markdown 为 HTML
+                    const rawMarkdown = tipTexts[mode] || '暂无提示内容';
+                    panel.innerHTML = DOMPurify.sanitize(marked.parse(rawMarkdown));
 
-                    clearTimeout(tipModal._timer);
-                    tipModal._timer = setTimeout(() => {
-                        tipModal.style.display = 'none';
-                    }, 5000);
                 });
+            });
+
+
+            // 点击页面其他地方关闭提示
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.tip-wrapper').forEach(w => w.classList.remove('active'));
             });
 
             // 设置默认模式为mihomo
