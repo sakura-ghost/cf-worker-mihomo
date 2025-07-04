@@ -7763,7 +7763,7 @@ async function Rule_Data(rule) {
   return await fetchResponse(rule);
 }
 __name(Rule_Data, "Rule_Data");
-async function getFakePage(image, button_url, button_text, configdata, subapi2) {
+async function getFakePage(variable, configdata) {
   return `
 <!DOCTYPE html>
 <html>
@@ -7788,7 +7788,7 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
         }
 
         body {
-            background-image: url(${image});
+            background-image: url(${variable.IMG});
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -8126,18 +8126,7 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
             background-color: rgba(67, 97, 238, 0.2);
             font-weight: bold;
         }
-        
-        // .template-url {
-        //     width: 100%;
-        //     padding: 12px;
-        //     border: 2px solid rgba(0, 0, 0, 0.15);
-        //     border-radius: 10px;
-        //     font-size: 1rem;
-        //     background-color: #f8f9fa;
-        //     color: #666;
-        //     cursor: not-allowed;
-        //     margin-top: 10px;
-        // }
+
         /* Add new styles for the toggle switch */
         .config-toggle {
             display: flex;
@@ -8178,6 +8167,23 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
         .singbox-mode .mihomo-options {
             display: none;
         }
+
+        /* \u611F\u53F9\u53F7 */
+        .tip-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #4a60ea;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@keeex/qrcodejs-kx@1.0.2/qrcode.min.js"><\/script>
 </head>
@@ -8212,7 +8218,10 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
             </div>
 
             <div class="input-group">
-                <label for="link">\u8BA2\u9605\u94FE\u63A5</label>
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                    <label for="link" style="margin: 0;">\u8BA2\u9605\u94FE\u63A5</label>
+                    <span class="tip-icon" data-mode="mihomo" title="\u70B9\u51FB\u67E5\u770B\u63D0\u793A">!</span>
+                </div>
                 <div id="link-container">
                     <div class="link-row">
                         <input type="text" class="link-input"/>
@@ -8232,7 +8241,10 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
                 </div>
             </div>
             <div class="input-group">
-                <label for="link">\u8BA2\u9605\u94FE\u63A5</label>
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                    <label for="link" style="margin: 0;">\u8BA2\u9605\u94FE\u63A5</label>
+                    <span class="tip-icon" data-mode="singbox" title="\u70B9\u51FB\u67E5\u770B\u63D0\u793A">!</span>
+                </div>
                 <div id="link-container-singbox">
                     <div class="link-row">
                         <input type="text" class="link-input"/>
@@ -8243,18 +8255,33 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
 
             <button onclick="generateSingboxLink()">\u751F\u6210Singbox\u914D\u7F6E</button>
         </div>
-
+        <div id="tipModal" style="
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 90%;
+            padding: 12px 18px;
+            background: rgba(50, 60, 180, 0.95);
+            color: white;
+            font-size: 14px;
+            border-radius: 8px;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        ">
+            <div id="tipContent">\u63D0\u793A\u5185\u5BB9</div>
+        </div>
 
         <div class="input-group">
             <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                <span>\u8F6C\u6362\u540E\u7AEF\uFF1A${subapi2}</span>
                 <label for="result">\u8BA2\u9605\u5730\u5740\uFF1A</label>
             </div>
             <input type="text" id="result" readonly onclick="copyToClipboard()">
             <label id="qrcode" style="margin: 15px 10px -15px 10px;"></label>
         </div>
         <div class="beian-info" style="text-align: center; font-size: 13px;">
-            <a href='${button_url}'>${button_text}</a>
+            <a href='${variable.beianurl}'>${variable.beian}</a>
         </div>
     </div>
 
@@ -8336,6 +8363,48 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
         document.addEventListener('DOMContentLoaded', function () {
             const toggleOptions = document.querySelectorAll('.toggle-option');
             const container = document.querySelector('.container');
+            const tipModal = document.getElementById('tipModal');
+            const tipContent = document.getElementById('tipContent');
+
+            const tipTexts = {
+                mihomo: \`
+                    <strong>mihomo \u4F7F\u7528\u63D0\u793A\uFF1A</strong><br>
+                    - \u652F\u6301\u591A\u4E2A\u8BA2\u9605\u94FE\u63A5\uFF0C\u81EA\u52A8\u5408\u5E76\u751F\u6210\u914D\u7F6E<br>
+                    - \u53EF\u9009\u6A21\u677F\u751F\u6210 Clash (mihomo) \u94FE\u63A5<br>
+                    - \u53EF\u590D\u5236\u6216\u626B\u7801\u5BFC\u5165<br>
+                    - \u5173\u95ED\u6240\u6709\u8986\u5199\u529F\u80FD\uFF08\u4E0D\u662F\u5173\u95ED\u529F\u80FD\uFF0C\u662F\u5173\u95ED\u8986\u5199\uFF09\u4EE5\u786E\u4FDD\u914D\u7F6E\u6B63\u5E38\u751F\u6548
+                    <strong>\u914D\u7F6E\u4FE1\u606F</strong><br>
+                    userAgent: ${variable.userAgent}<br>
+                    \u8F6C\u6362\u540E\u7AEF\uFF1A${variable.sub}<br>
+                    \u9ED8\u8BA4: ${variable.Mihomo_default}<br>
+                \`,
+                singbox: \`
+                    <strong>singbox \u4F7F\u7528\u63D0\u793A\uFF1A</strong><br>
+                    - \u652F\u6301\u591A\u4E2A\u8BA2\u9605\u94FE\u63A5\uFF0C\u81EA\u52A8\u5408\u5E76\u751F\u6210\u914D\u7F6E<br>
+                    - \u9002\u7528\u4E8E sing-box \u5BA2\u6237\u7AEF<br>
+                    - \u652F\u6301\u626B\u7801\u6216\u94FE\u63A5\u590D\u5236\u5BFC\u5165
+                    <strong>\u914D\u7F6E\u4FE1\u606F</strong><br>
+                    userAgent: ${variable.userAgent}<br>
+                    \u8F6C\u6362\u540E\u7AEF\uFF1A${variable.sub}<br>
+                    1.11: ${variable.Singbox_default.singbox_1_11}<br>
+                    1.12: ${variable.Singbox_default.singbox_1_12}<br>
+                    1.12_alpha: ${variable.Singbox_default.singbox_1_12_alpha}<br>
+                \`
+            };
+            // \u5F39\u7A97\u63D0\u793A
+            document.querySelectorAll('.tip-icon').forEach(icon => {
+                icon.addEventListener('click', () => {
+                    const mode = icon.dataset.mode;
+                    tipContent.innerHTML = tipTexts[mode] || '\u6682\u65E0\u63D0\u793A\u5185\u5BB9';
+
+                    tipModal.style.display = 'block';
+
+                    clearTimeout(tipModal._timer);
+                    tipModal._timer = setTimeout(() => {
+                        tipModal.style.display = 'none';
+                    }, 5000);
+                });
+            });
 
             // \u8BBE\u7F6E\u9ED8\u8BA4\u6A21\u5F0F\u4E3Amihomo
             const defaultMode = 'mihomo';
@@ -8358,7 +8427,6 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
                    initializePlaceholders(newMode);
                 });
             });
-
             // \u521D\u59CB\u5316\u6A21\u677F\u9009\u62E9\u5668
             initTemplateSelector('mihomo');
             initTemplateSelector('singbox');
@@ -8451,16 +8519,12 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
             }
 
             const allLinks = [];
-            if (templateLink) {
-                allLinks.push(\`template=\${encodeURIComponent(templateLink)}\`);
-            }
-
             subscriptionLinks.forEach(link => {
-                allLinks.push(\`url=\${encodeURIComponent(link)}\`);
+                allLinks.push(encodeURIComponent(link));
             });
 
             const origin = window.location.origin;
-            const urlLink = \`\${origin}/?\${allLinks.join('&')}\`;
+            const urlLink = \`\${origin}/?template=\${encodeURIComponent(templateLink)}&url=\${allLinks.join(',')}&mihomo=true\`;
             updateResult(urlLink);
         }
         // \u751F\u6210singbox\u94FE\u63A5
@@ -8479,16 +8543,12 @@ async function getFakePage(image, button_url, button_text, configdata, subapi2) 
             }
 
             const allLinks = [];
-            if (templateLink) {
-                allLinks.push(\`template=\${encodeURIComponent(templateLink)}\`);
-            }
-
             subscriptionLinks.forEach(link => {
-                allLinks.push(\`url=\${encodeURIComponent(link)}\`);
+                allLinks.push(encodeURIComponent(link));
             });
 
             const origin = window.location.origin;
-            const urlLink = \`\${origin}/?\${allLinks.join('&')}&singbox=true\`;
+            const urlLink = \`\${origin}/?template=\${encodeURIComponent(templateLink)}&url=\${allLinks.join(',')}&singbox=true\`;
             updateResult(urlLink);
         }
         // \u66F4\u65B0\u7ED3\u679C\u548C\u4E8C\u7EF4\u7801
@@ -8986,12 +9046,23 @@ var index_default = {
     };
     const beian = env2.BEIAN || beiantext;
     const beianurl = env2.BEIANURL || beiandizi;
+    const variable = {
+      userAgent,
+      rule,
+      singbox,
+      IMG,
+      sub,
+      Mihomo_default,
+      Singbox_default,
+      beian,
+      beianurl
+    };
     let urls = url.searchParams.getAll("url");
     if (urls.length === 1 && urls[0].includes(",")) {
       urls = urls[0].split(",").map((u) => u.trim());
     }
     if (urls.length === 0 || urls[0] === "") {
-      return new Response(await getFakePage(IMG, beianurl, beian, configs(), sub), {
+      return new Response(await getFakePage(variable, configs()), {
         status: 200,
         headers: {
           "Content-Type": "text/html; charset=utf-8"
