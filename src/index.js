@@ -17,6 +17,17 @@ export default {
         };
         const beian = env.BEIAN || beiantext
         const beianurl = env.BEIANURL || beiandizi
+        const variable = {
+            userAgent,
+            rule,
+            singbox,
+            IMG,
+            sub,
+            Mihomo_default,
+            Singbox_default,
+            beian,
+            beianurl
+        };
         // 处理 URL 参数
         let urls = url.searchParams.getAll("url");
 
@@ -25,7 +36,7 @@ export default {
         }
 
         if (urls.length === 0 || urls[0] === "") {
-            return new Response(await getFakePage(IMG, beianurl, beian, configs(), sub), {
+            return new Response(await getFakePage(variable, configs()), {
                 status: 200,
                 headers: {
                     "Content-Type": "text/html; charset=utf-8"

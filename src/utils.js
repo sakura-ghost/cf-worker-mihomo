@@ -109,7 +109,7 @@ export async function Rule_Data(rule) {
 }
 
 // 获取伪装页面
-export async function getFakePage(image, button_url, button_text, configdata, subapi) {
+export async function getFakePage(variable, configdata) {
     return `
 <!DOCTYPE html>
 <html>
@@ -134,7 +134,7 @@ export async function getFakePage(image, button_url, button_text, configdata, su
         }
 
         body {
-            background-image: url(${image});
+            background-image: url(${variable.IMG});
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -472,18 +472,7 @@ export async function getFakePage(image, button_url, button_text, configdata, su
             background-color: rgba(67, 97, 238, 0.2);
             font-weight: bold;
         }
-        
-        // .template-url {
-        //     width: 100%;
-        //     padding: 12px;
-        //     border: 2px solid rgba(0, 0, 0, 0.15);
-        //     border-radius: 10px;
-        //     font-size: 1rem;
-        //     background-color: #f8f9fa;
-        //     color: #666;
-        //     cursor: not-allowed;
-        //     margin-top: 10px;
-        // }
+
         /* Add new styles for the toggle switch */
         .config-toggle {
             display: flex;
@@ -524,6 +513,23 @@ export async function getFakePage(image, button_url, button_text, configdata, su
         .singbox-mode .mihomo-options {
             display: none;
         }
+
+        /* 感叹号 */
+        .tip-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #4a60ea;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@keeex/qrcodejs-kx@1.0.2/qrcode.min.js"></script>
 </head>
@@ -558,7 +564,10 @@ export async function getFakePage(image, button_url, button_text, configdata, su
             </div>
 
             <div class="input-group">
-                <label for="link">订阅链接</label>
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                    <label for="link" style="margin: 0;">订阅链接</label>
+                    <span class="tip-icon" data-mode="mihomo" title="点击查看提示">!</span>
+                </div>
                 <div id="link-container">
                     <div class="link-row">
                         <input type="text" class="link-input"/>
@@ -578,7 +587,10 @@ export async function getFakePage(image, button_url, button_text, configdata, su
                 </div>
             </div>
             <div class="input-group">
-                <label for="link">订阅链接</label>
+                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                    <label for="link" style="margin: 0;">订阅链接</label>
+                    <span class="tip-icon" data-mode="singbox" title="点击查看提示">!</span>
+                </div>
                 <div id="link-container-singbox">
                     <div class="link-row">
                         <input type="text" class="link-input"/>
@@ -589,18 +601,33 @@ export async function getFakePage(image, button_url, button_text, configdata, su
 
             <button onclick="generateSingboxLink()">生成Singbox配置</button>
         </div>
-
+        <div id="tipModal" style="
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 90%;
+            padding: 12px 18px;
+            background: rgba(50, 60, 180, 0.95);
+            color: white;
+            font-size: 14px;
+            border-radius: 8px;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        ">
+            <div id="tipContent">提示内容</div>
+        </div>
 
         <div class="input-group">
             <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                <span>转换后端：${subapi}</span>
                 <label for="result">订阅地址：</label>
             </div>
             <input type="text" id="result" readonly onclick="copyToClipboard()">
             <label id="qrcode" style="margin: 15px 10px -15px 10px;"></label>
         </div>
         <div class="beian-info" style="text-align: center; font-size: 13px;">
-            <a href='${button_url}'>${button_text}</a>
+            <a href='${variable.beianurl}'>${variable.beian}</a>
         </div>
     </div>
 
@@ -682,6 +709,48 @@ export async function getFakePage(image, button_url, button_text, configdata, su
         document.addEventListener('DOMContentLoaded', function () {
             const toggleOptions = document.querySelectorAll('.toggle-option');
             const container = document.querySelector('.container');
+            const tipModal = document.getElementById('tipModal');
+            const tipContent = document.getElementById('tipContent');
+
+            const tipTexts = {
+                mihomo: \`
+                    <strong>mihomo 使用提示：</strong><br>
+                    - 支持多个订阅链接，自动合并生成配置<br>
+                    - 可选模板生成 Clash (mihomo) 链接<br>
+                    - 可复制或扫码导入<br>
+                    - 关闭所有覆写功能（不是关闭功能，是关闭覆写）以确保配置正常生效
+                    <strong>配置信息</strong><br>
+                    userAgent: ${variable.userAgent}<br>
+                    转换后端：${variable.sub}<br>
+                    默认: ${variable.Mihomo_default}<br>
+                \`,
+                singbox: \`
+                    <strong>singbox 使用提示：</strong><br>
+                    - 支持多个订阅链接，自动合并生成配置<br>
+                    - 适用于 sing-box 客户端<br>
+                    - 支持扫码或链接复制导入
+                    <strong>配置信息</strong><br>
+                    userAgent: ${variable.userAgent}<br>
+                    转换后端：${variable.sub}<br>
+                    1.11: ${variable.Singbox_default.singbox_1_11}<br>
+                    1.12: ${variable.Singbox_default.singbox_1_12}<br>
+                    1.12_alpha: ${variable.Singbox_default.singbox_1_12_alpha}<br>
+                \`
+            };
+            // 弹窗提示
+            document.querySelectorAll('.tip-icon').forEach(icon => {
+                icon.addEventListener('click', () => {
+                    const mode = icon.dataset.mode;
+                    tipContent.innerHTML = tipTexts[mode] || '暂无提示内容';
+
+                    tipModal.style.display = 'block';
+
+                    clearTimeout(tipModal._timer);
+                    tipModal._timer = setTimeout(() => {
+                        tipModal.style.display = 'none';
+                    }, 5000);
+                });
+            });
 
             // 设置默认模式为mihomo
             const defaultMode = 'mihomo';
@@ -704,7 +773,6 @@ export async function getFakePage(image, button_url, button_text, configdata, su
                    initializePlaceholders(newMode);
                 });
             });
-
             // 初始化模板选择器
             initTemplateSelector('mihomo');
             initTemplateSelector('singbox');
@@ -797,16 +865,12 @@ export async function getFakePage(image, button_url, button_text, configdata, su
             }
 
             const allLinks = [];
-            if (templateLink) {
-                allLinks.push(\`template=\${encodeURIComponent(templateLink)}\`);
-            }
-
             subscriptionLinks.forEach(link => {
-                allLinks.push(\`url=\${encodeURIComponent(link)}\`);
+                allLinks.push(encodeURIComponent(link));
             });
 
             const origin = window.location.origin;
-            const urlLink = \`\${origin}/?\${allLinks.join('&')}\`;
+            const urlLink = \`\${origin}/?template=\${encodeURIComponent(templateLink)}&url=\${allLinks.join(',')}&mihomo=true\`;
             updateResult(urlLink);
         }
         // 生成singbox链接
@@ -825,16 +889,12 @@ export async function getFakePage(image, button_url, button_text, configdata, su
             }
 
             const allLinks = [];
-            if (templateLink) {
-                allLinks.push(\`template=\${encodeURIComponent(templateLink)}\`);
-            }
-
             subscriptionLinks.forEach(link => {
-                allLinks.push(\`url=\${encodeURIComponent(link)}\`);
+                allLinks.push(encodeURIComponent(link));
             });
 
             const origin = window.location.origin;
-            const urlLink = \`\${origin}/?\${allLinks.join('&')}&singbox=true\`;
+            const urlLink = \`\${origin}/?template=\${encodeURIComponent(templateLink)}&url=\${allLinks.join(',')}&singbox=true\`;
             updateResult(urlLink);
         }
         // 更新结果和二维码

@@ -9,7 +9,7 @@ const router = new Router();
 router.get('/', async (ctx) => {
   const url = new URL(ctx.request.href);
   const userAgent = ctx.request.headers['user-agent'];
-  const templateUrl = url.searchParams.get("template");
+  const rule = url.searchParams.get("template");
   const singbox = url.searchParams.get("singbox");
   const IMG = process.env.IMG || backimg;
   const sub = process.env.SUB || subapi;
@@ -21,6 +21,15 @@ router.get('/', async (ctx) => {
   };
   const beian = process.env.BEIAN || beiantext;
   const beianurl = process.env.BEIANURL || beiandizi;
+  const variable = {
+    userAgent,
+    IMG,
+    sub,
+    Mihomo_default,
+    Singbox_default,
+    beian,
+    beianurl 
+  };
 
   // Handle URL parameters
   let urls = url.searchParams.getAll("url");
@@ -30,7 +39,7 @@ router.get('/', async (ctx) => {
   }
 
   if (urls.length === 0 || urls[0] === "") {
-    ctx.body = await getFakePage(IMG, beianurl, beian, configs(), sub);
+    ctx.body = await getFakePage(variable, configs());
     ctx.type = 'html';
     return;
   }
@@ -38,9 +47,9 @@ router.get('/', async (ctx) => {
   try {
     let res;
     if (singbox) {
-      res = await getsingbox_config(urls, templateUrl, Singbox_default, userAgent, sub);
+      res = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
     } else {
-      res = await getmihomo_config(urls, templateUrl, Mihomo_default, userAgent, sub);
+      res = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub);
     }
     // 过滤 headers 中的不安全字段，并转为普通对象
     const rawHeaders = res.headers || {};

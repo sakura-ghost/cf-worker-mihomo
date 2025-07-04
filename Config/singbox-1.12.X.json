@@ -172,9 +172,7 @@
                 "action": "route-options",
                 "udp_disable_domain_unmapping": true,
                 "udp_connect": true,
-                "udp_timeout": "5m",
-                "tls_fragment": true,
-                "tls_fragment_fallback_delay": "500m"
+                "udp_timeout": "5m"
             },
             {
                 "action": "resolve"
