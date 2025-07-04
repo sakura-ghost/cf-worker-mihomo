@@ -31,7 +31,7 @@ Mihomo（Clash Meta）是一款高效的订阅汇聚工具，支持快速生成 
 
 ## 🖥 Web 控制台
 访问在线配置生成器：
-👉 [mihomo.haxtop.ggff.net](https://mihomo.haxtop.ggff.net)
+👉 [sub.ikar.eu.org](https://sub.ikar.eu.org)
 
 > 💡 使用建议：关闭所有覆写功能（不是关闭功能，是关闭覆写）以确保配置正常生效。
 
@@ -94,7 +94,7 @@ npm run deploy
    - 保存部署
 2. 给 workers绑定 自定义域： 
    - 在 workers控制台的 `触发器`选项卡，下方点击 `添加自定义域`。
-   - 填入你已转入 CF 域名解析服务的次级域名，例如:`mihomo.haxtop.ggff.net`后 点击`添加自定义域`，等待证书生效即可。
+   - 填入你已转入 CF 域名解析服务的次级域名，例如:`sub.ikar.eu.org`后 点击`添加自定义域`，等待证书生效即可。
 3. 使用方法：
    ```
    https://your-domain.com?url=订阅链接1,订阅链接2
