@@ -146,9 +146,6 @@
         },
         "rules": [
             {
-                "action": "resolve"
-            },
-            {
                 "action": "sniff"
             },
             {
@@ -185,6 +182,9 @@
                 "udp_timeout": "5m",
                 "tls_fragment": true,
                 "tls_fragment_fallback_delay": "500m"
+            },
+            {
+                "action": "resolve"
             }
         ],
         "rule_set": [

@@ -142,9 +142,6 @@
         "final": "🚀 节点选择",
         "rules": [
             {
-                "action": "resolve"
-            },
-            {
                 "action": "sniff"
             },
             {
@@ -181,6 +178,9 @@
                 "udp_timeout": "5m",
                 "disable_cache": true
             },
+            {
+                "action": "resolve"
+            }
         ],
         "rule_set": [
             {

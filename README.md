@@ -96,10 +96,6 @@ npm run deploy
 2. 给 workers绑定 自定义域： 
    - 在 workers控制台的 `触发器`选项卡，下方点击 `添加自定义域`。
    - 填入你已转入 CF 域名解析服务的次级域名，例如:`sub.ikar.eu.org`后 点击`添加自定义域`，等待证书生效即可。
-3. 使用方法：
-   ```
-   https://your-domain.com?url=订阅链接1,订阅链接2
-   ```
 
 ### 3. Cloudflare Pages 部署
 
