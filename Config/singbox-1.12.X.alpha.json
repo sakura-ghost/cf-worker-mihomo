@@ -146,12 +146,6 @@
         },
         "rules": [
             {
-                "action": "route-options",
-                "udp_disable_domain_unmapping": true,
-                "udp_connect": true,
-                "udp_timeout": "5m"
-            },
-            {
                 "action": "resolve"
             },
             {
@@ -183,6 +177,14 @@
             {
                 "clash_mode": "global",
                 "outbound": "🚀 节点选择"
+            },
+            {
+                "action": "route-options",
+                "udp_disable_domain_unmapping": true,
+                "udp_connect": true,
+                "udp_timeout": "5m",
+                "tls_fragment": true,
+                "tls_fragment_fallback_delay": "500m"
             }
         ],
         "rule_set": [
