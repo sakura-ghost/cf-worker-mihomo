@@ -8184,8 +8184,58 @@ async function getFakePage(variable, configdata) {
             user-select: none;
         }
 
+        .tip-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tip-panel {
+            display: none;
+            position: absolute;
+            top: 24px;
+            left: 0;
+            min-width: 260px;
+            max-width: 320px;
+            max-height: 50vh; /* \u9650\u5236\u6700\u5927\u9AD8\u5EA6\uFF0C\u9632\u6B62\u8D85\u51FA\u5C4F\u5E55 */
+            background: white;
+            color: #333;
+            font-size: 14px;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            white-space: normal;
+            line-height: 1.6;
+            overflow-y: auto; /* \u589E\u52A0\u6EDA\u52A8\u6761\u652F\u6301 */
+            overflow-x: hidden;
+            word-break: break-word;
+        }
+
+        .tip-panel ul {
+            margin: 8px 0;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+        .tip-panel li {
+            margin-bottom: 6px;
+        }
+
+        .tip-panel strong, .tip-panel b {
+            font-weight: bold;
+            color: #4a60ea;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .tip-wrapper.active .tip-panel {
+            display: block;
+        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@keeex/qrcodejs-kx@1.0.2/qrcode.min.js"><\/script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"><\/script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"><\/script>
 </head>
 
 <body>
@@ -8220,7 +8270,10 @@ async function getFakePage(variable, configdata) {
             <div class="input-group">
                 <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
                     <label for="link" style="margin: 0;">\u8BA2\u9605\u94FE\u63A5</label>
-                    <span class="tip-icon" data-mode="mihomo" title="\u70B9\u51FB\u67E5\u770B\u63D0\u793A">!</span>
+                    <div class="tip-wrapper">
+                        <span class="tip-icon" data-mode="mihomo">!</span>
+                        <div class="tip-panel"></div>
+                    </div>
                 </div>
                 <div id="link-container">
                     <div class="link-row">
@@ -8243,7 +8296,10 @@ async function getFakePage(variable, configdata) {
             <div class="input-group">
                 <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
                     <label for="link" style="margin: 0;">\u8BA2\u9605\u94FE\u63A5</label>
-                    <span class="tip-icon" data-mode="singbox" title="\u70B9\u51FB\u67E5\u770B\u63D0\u793A">!</span>
+                    <div class="tip-wrapper">
+                        <span class="tip-icon" data-mode="singbox">!</span>
+                        <div class="tip-panel"></div>
+                    </div>
                 </div>
                 <div id="link-container-singbox">
                     <div class="link-row">
@@ -8255,23 +8311,7 @@ async function getFakePage(variable, configdata) {
 
             <button onclick="generateSingboxLink()">\u751F\u6210Singbox\u914D\u7F6E</button>
         </div>
-        <div id="tipModal" style="
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 90%;
-            padding: 12px 18px;
-            background: rgba(50, 60, 180, 0.95);
-            color: white;
-            font-size: 14px;
-            border-radius: 8px;
-            z-index: 9999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        ">
-            <div id="tipContent">\u63D0\u793A\u5185\u5BB9</div>
-        </div>
+
 
         <div class="input-group">
             <div style="display: flex; flex-direction: column; align-items: flex-start;">
@@ -8368,42 +8408,66 @@ async function getFakePage(variable, configdata) {
 
             const tipTexts = {
                 mihomo: \`
-                    <strong>mihomo \u4F7F\u7528\u63D0\u793A\uFF1A</strong><br>
-                    - \u652F\u6301\u591A\u4E2A\u8BA2\u9605\u94FE\u63A5\uFF0C\u81EA\u52A8\u5408\u5E76\u751F\u6210\u914D\u7F6E<br>
-                    - \u53EF\u9009\u6A21\u677F\u751F\u6210 Clash (mihomo) \u94FE\u63A5<br>
-                    - \u53EF\u590D\u5236\u6216\u626B\u7801\u5BFC\u5165<br>
-                    - \u5173\u95ED\u6240\u6709\u8986\u5199\u529F\u80FD\uFF08\u4E0D\u662F\u5173\u95ED\u529F\u80FD\uFF0C\u662F\u5173\u95ED\u8986\u5199\uFF09\u4EE5\u786E\u4FDD\u914D\u7F6E\u6B63\u5E38\u751F\u6548
-                    <strong>\u914D\u7F6E\u4FE1\u606F</strong><br>
-                    userAgent: ${variable.userAgent}<br>
-                    \u8F6C\u6362\u540E\u7AEF\uFF1A${variable.sub}<br>
-                    \u9ED8\u8BA4: ${variable.Mihomo_default}<br>
+## mihomo \u4F7F\u7528\u63D0\u793A\uFF1A
+
+- \u652F\u6301\u591A\u4E2A\u8BA2\u9605\u94FE\u63A5\uFF0C\u81EA\u52A8\u5408\u5E76\u751F\u6210\u914D\u7F6E
+- \u53EF\u9009\u6A21\u677F\u751F\u6210 Clash (mihomo) \u94FE\u63A5
+- \u53EF\u590D\u5236\u6216\u626B\u7801\u5BFC\u5165
+- \u5173\u95ED\u6240\u6709\u8986\u5199\u529F\u80FD\uFF08\u4E0D\u662F\u5173\u95ED\u529F\u80FD\uFF0C\u662F\u5173\u95ED\u8986\u5199\uFF09\u4EE5\u786E\u4FDD\u914D\u7F6E\u6B63\u5E38\u751F\u6548
+
+## \u914D\u7F6E\u4FE1\u606F
+
+**userAgent** ${variable.userAgent}
+
+**\u8F6C\u6362\u540E\u7AEF** ${variable.sub}
+
+**\u9ED8\u8BA4** ${variable.Mihomo_default}
                 \`,
                 singbox: \`
-                    <strong>singbox \u4F7F\u7528\u63D0\u793A\uFF1A</strong><br>
-                    - \u652F\u6301\u591A\u4E2A\u8BA2\u9605\u94FE\u63A5\uFF0C\u81EA\u52A8\u5408\u5E76\u751F\u6210\u914D\u7F6E<br>
-                    - \u9002\u7528\u4E8E sing-box \u5BA2\u6237\u7AEF<br>
-                    - \u652F\u6301\u626B\u7801\u6216\u94FE\u63A5\u590D\u5236\u5BFC\u5165
-                    <strong>\u914D\u7F6E\u4FE1\u606F</strong><br>
-                    userAgent: ${variable.userAgent}<br>
-                    \u8F6C\u6362\u540E\u7AEF\uFF1A${variable.sub}<br>
-                    1.11: ${variable.Singbox_default.singbox_1_11}<br>
-                    1.12: ${variable.Singbox_default.singbox_1_12}<br>
-                    1.12_alpha: ${variable.Singbox_default.singbox_1_12_alpha}<br>
+## singbox \u4F7F\u7528\u63D0\u793A\uFF1A
+
+- \u652F\u6301\u591A\u4E2A\u8BA2\u9605\u94FE\u63A5\uFF0C\u81EA\u52A8\u5408\u5E76\u751F\u6210\u914D\u7F6E
+- \u9002\u7528\u4E8E sing-box \u5BA2\u6237\u7AEF
+- \u652F\u6301\u626B\u7801\u6216\u94FE\u63A5\u590D\u5236\u5BFC\u5165
+
+## \u914D\u7F6E\u4FE1\u606F
+
+**userAgent** ${variable.userAgent}
+
+**\u8F6C\u6362\u540E\u7AEF** ${variable.sub}
+
+**1.11** ${variable.Singbox_default.singbox_1_11}
+
+**1.12** ${variable.Singbox_default.singbox_1_12}
+
+**1.12_alpha** ${variable.Singbox_default.singbox_1_12_alpha}
                 \`
             };
             // \u5F39\u7A97\u63D0\u793A
             document.querySelectorAll('.tip-icon').forEach(icon => {
-                icon.addEventListener('click', () => {
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation(); // \u9632\u6B62\u89E6\u53D1\u5168\u5C40\u70B9\u51FB\u5173\u95ED
+
+                    // \u5173\u95ED\u6240\u6709\u5DF2\u5C55\u5F00
+                    document.querySelectorAll('.tip-wrapper').forEach(w => w.classList.remove('active'));
+
+                    const wrapper = icon.closest('.tip-wrapper');
+                    wrapper.classList.toggle('active');
+
+                    const panel = wrapper.querySelector('.tip-panel');
                     const mode = icon.dataset.mode;
-                    tipContent.innerHTML = tipTexts[mode] || '\u6682\u65E0\u63D0\u793A\u5185\u5BB9';
 
-                    tipModal.style.display = 'block';
+                    // \u4F7F\u7528 marked \u6E32\u67D3 Markdown \u4E3A HTML
+                    const rawMarkdown = tipTexts[mode] || '\u6682\u65E0\u63D0\u793A\u5185\u5BB9';
+                    panel.innerHTML = DOMPurify.sanitize(marked.parse(rawMarkdown));
 
-                    clearTimeout(tipModal._timer);
-                    tipModal._timer = setTimeout(() => {
-                        tipModal.style.display = 'none';
-                    }, 5000);
                 });
+            });
+
+
+            // \u70B9\u51FB\u9875\u9762\u5176\u4ED6\u5730\u65B9\u5173\u95ED\u63D0\u793A
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.tip-wrapper').forEach(w => w.classList.remove('active'));
             });
 
             // \u8BBE\u7F6E\u9ED8\u8BA4\u6A21\u5F0F\u4E3Amihomo
