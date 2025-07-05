@@ -705,8 +705,8 @@ export async function getFakePage(variable, configdata) {
         // 动态设置输入框的placeholder，根据当前模式
         function setPlaceholderForMode(input, mode = 'mihomo') {
             input.placeholder = mode === 'singbox' 
-                ? '请输入singbox订阅地址url，支持单节点' 
-                : '请输入clash订阅地址url，支持单节点';
+                ? '请输入singbox订阅地址url，支持各种订阅或单节点链接' 
+                : '请输入clash订阅地址url，支持各种订阅或单节点链接';
         }
 
         // 初始化所有输入框的placeholder
@@ -756,9 +756,12 @@ export async function getFakePage(variable, configdata) {
                 mihomo: \`
 ## mihomo 使用提示：
 
-- 支持多个订阅链接，自动合并生成配置
+- 支持各种订阅或单节点链接，自动合并生成配置
 - 可选模板生成 Clash (mihomo) 链接
 - 可复制或扫码导入
+- 去广告过滤
+- 防止 DNS 泄漏（安全DNS/DoH）
+- 屏蔽 WebRTC 泄漏（防止真实IP暴露）
 - 关闭所有覆写功能（不是关闭功能，是关闭覆写）以确保配置正常生效
 
 ## 配置信息
@@ -772,9 +775,12 @@ export async function getFakePage(variable, configdata) {
                 singbox: \`
 ## singbox 使用提示：
 
-- 支持多个订阅链接，自动合并生成配置
+- 支持各种订阅或单节点链接，自动合并生成配置
 - 适用于 sing-box 客户端
+- 支持 1.11.x
+- 支持 1.12.x
 - 支持扫码或链接复制导入
+- 防止 DNS 泄漏（安全DNS/DoH）
 
 ## 配置信息
 
