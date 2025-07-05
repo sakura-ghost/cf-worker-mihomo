@@ -8777,10 +8777,6 @@ function configs() {
             value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_mini.yaml"
           },
           {
-            label: "\u9ED8\u8BA4\uFF08mini\u7248\uFF09[DustinWin_ads]",
-            value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_mini_Ads_DustinWin.yaml"
-          },
-          {
             label: "\u9ED8\u8BA4\uFF08\u5168\u5206\u7EC4\uFF09[\u79CB\u98CE_ads]",
             value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_full.yaml"
           },
