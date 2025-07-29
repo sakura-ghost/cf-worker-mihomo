@@ -21,7 +21,7 @@ route:
     - { rule_set: [ AWAvenue-Ads ], outbound: 🪧 广告拦截 }
     - { type: logical, mode: or, rules: [ { port: [ 3478 ] }, { network: [ tcp ], port: [ 5349 ] }, { network: [ udp ], port: [ 5350, 5351, 19302 ] }, { rule_set: [ STUN ] } ], outbound: 💧 泄漏拦截 }
     - { rule_set: [ BlockHttpDNS ], outbound: 🔎 HttpDNS }
-    - { rule_set: [ geosite-private, geoip-private, geoip-cn ], outbound: 🎯 全球直连 }
+    - { rule_set: [ geosite-private ], outbound: 🎯 全球直连 }
     - { rule_set: [ AppStore ], outbound: AppStore }
     - { rule_set: [ AppleMail ], outbound: Apple邮箱 }
     - { rule_set: [ AppleMusic ], outbound: Apple音乐 }
@@ -99,6 +99,8 @@ route:
     - { rule_set: [ "4399" ], outbound: "4399" }
     - { rule_set: [ WeChat ], outbound: 微信 }
     - { rule_set: [ Mihoyo ], outbound: Mihoyo }
+    - { action: resolve }
+    - { rule_set: [ geoip-private, geoip-cn ], outbound: 🎯 全球直连 }
     - { rule_set: [ Telegramcidr ], outbound: Telegram }
     - { rule_set: [ Facebookcidr ], outbound: Facebook }
     - { rule_set: [ Twittercidr ], outbound: Twitter }

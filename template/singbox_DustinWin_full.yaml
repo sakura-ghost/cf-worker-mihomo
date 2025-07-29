@@ -21,23 +21,28 @@ route:
     - { rule_set: [ Ads ], outbound: 🪧 广告拦截 }
     - { type: logical, mode: or, rules: [ { port: [ 3478 ] }, { network: [ tcp ], port: [ 5349 ] }, { network: [ udp ], port: [ 5350, 5351, 19302 ] }, { rule_set: [ STUN ] } ], outbound: 💧 泄漏拦截 }
     - { rule_set: [ BlockHttpDNS ], outbound: 🔎 HttpDNS }
-    - { rule_set: [ private, private_ip, cn_ip ], outbound: 🎯 全球直连 }
+    - { rule_set: [ private ], outbound: 🎯 全球直连 }
     - { rule_set: [ apple_cn ], outbound: apple }
     - { rule_set: [ appletv ], outbound: appletv }
     - { rule_set: [ bilibili ], outbound: bilibili }
     - { rule_set: [ disney ], outbound: disney }
-    - { rule_set: [ games, games_ip ], outbound: 国际游戏 }
+    - { rule_set: [ games ], outbound: 国际游戏 }
     - { rule_set: [ games_cn ], outbound: 国内游戏 }
-    - { rule_set: [ media, media ], outbound: 国际媒体 }
+    - { rule_set: [ media ], outbound: 国际媒体 }
     - { rule_set: [ microsoft_cn ], outbound: 微软服务 }
-    - { rule_set: [ netflix, netflix_ip ], outbound: netflix }
+    - { rule_set: [ netflix ], outbound: netflix }
     - { rule_set: [ networktest ], outbound: speedtest }
     - { rule_set: [ openai ], outbound: openai }
     - { rule_set: [ primevideo ], outbound: 亚马逊TV }
     - { rule_set: [ spotify ], outbound: spotify }
-    - { rule_set: [ telegram_ip ], outbound: telegram }
     - { rule_set: [ tiktok ], outbound: tiktok }
     - { rule_set: [ youtube ], outbound: youtube }
+    - { action: resolve }
+    - { rule_set: [ private_ip, cn_ip ], outbound: 🎯 全球直连 }
+    - { rule_set: [ games_ip ], outbound: 国际游戏 }
+    - { rule_set: [ media_ip ], outbound: 国际媒体 }
+    - { rule_set: [ netflix_ip ], outbound: netflix }
+    - { rule_set: [ telegram_ip ], outbound: telegram }
   rule_set:
     # DustinWin 规则集
     - { tag: apple_cn, type: remote, url: https://cdn.jsdmirror.com/gh/DustinWin/ruleset_geodata@sing-box-ruleset/apple-cn.srs, format: binary, download_detour: 🎯 全球直连 }

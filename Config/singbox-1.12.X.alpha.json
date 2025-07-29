@@ -176,9 +176,6 @@
                 "udp_disable_domain_unmapping": true,
                 "udp_connect": true,
                 "udp_timeout": "5m"
-            },
-            {
-                "action": "resolve"
             }
         ],
         "rule_set": [
