@@ -34,7 +34,6 @@ sub-rules:
     - RULE-SET,Advertising-ads,🪧广告拦截
     - RULE-SET,STUN,💧泄漏拦截
     - DST-PORT,3478,💧泄漏拦截
-    - DOMAIN,cdn.jsdmirror.com,🎯全球直连
     - AND,(NETWORK,TCP),(DST-PORT,5349),💧泄漏拦截
     - AND,(NETWORK,UDP),(DST-PORT,5350),💧泄漏拦截
     - AND,(NETWORK,UDP),(DST-PORT,5351),💧泄漏拦截

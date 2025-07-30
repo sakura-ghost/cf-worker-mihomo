@@ -243,7 +243,6 @@ sub-rules:
     - RULE-SET,Private,🎯全球直连
     - RULE-SET,Privatecidr,🎯全球直连,no-resolve
     # 域名
-    - DOMAIN,ghfast.top,🎯全球直连
     - RULE-SET,AppStore,AppStore # App Store 应用商店
     - RULE-SET,AppleMail,Apple邮箱 # Apple Mail 邮件服务
     - RULE-SET,AppleMusic,Apple音乐 # Apple Music 音乐流媒体
