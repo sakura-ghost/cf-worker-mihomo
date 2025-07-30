@@ -222,14 +222,12 @@ proxy-groups:
   - { name: GLOBAL, type: select, include-all: true, proxies: [🚀全球代理, 🟢手动选择, 🪧广告拦截, 🔎HttpDNS, 💧泄漏拦截, 🎯全球直连, ♻️自动选择, ⚡️均衡负载, 🔯故障转移, 115, 12306, 4399, 4GTV, 58同城, 农业银行, AbemaTV, Adobe, 支付宝, 阿里巴巴, 亚马逊电商, 亚马逊TV, Apple, AppleCN, AppStore, Apple邮箱, Apple音乐, Apple新闻, Apple日报, AppleTV, 巴哈姆特, 百度贴吧, 百度, 哔哩哔哩, 哔哩东南亚, BT追踪器, 暴雪, 字节跳动, Beats, CCTV, 中国媒体, Cloudflare, 钉钉, Discord, Disney, Docker, 豆瓣, E站, EA, Epic, Emby, FCM, Facebook, Fastly, FitnessPlus, 高德, GitHub, Google, Google云盘, Google地图, GoogleVoice, Hoyoverse, Hulu, 虎扑, HBO, IMDB, 爱奇艺, Instagram, 因特尔, iCloud, 京东, 酷狗, 酷我, LastFM, LINE, 美团, 微软, Mihoyo, NGA, 网易, 网易云音乐, Netflix, ニコニコ, OpenAI, 微软云盘, 潘朵拉珠宝, PayPal, PikPak, 拼多多, Pixiv, PlayStation, 国际媒体, Qobuz, Reddit, Rockstar, 什么值得买, Google学术, 新浪, 索尼, SoundCloud, Speedtest, Spotify, Steam, Steam中国, Supercell, Signal, TVB, Telegram, 腾讯, 抖音, TikTok, Twitch, Twitter, Tor, Talkatone, 微信, 维基百科, Wise, YouTube, YouTubeMusic, 禁漫天堂, 哔咔哔咔], icon: https://cdn.jsdmirror.com/gh/Kwisma/rules@main/icon/webp/100/GLOBAL.webp }
 
 rules:
-  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-REJECT
-  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-LAN
-  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-DOMAIN
-  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-IPCIDR
+  - SUB-RULE,(OR,((NETWORK,UDP),(NETWORK,TCP))),SUB-RULES
   - MATCH,🚀全球代理
 
 sub-rules:
-  SUB-REJECT:
+  SUB-RULES:
+    # 广告拦截
     - RULE-SET,Advertising-ads,🪧广告拦截
     - RULE-SET,BlockHttpDNS,🔎HttpDNS
     - RULE-SET,BlockHttpDNScidr,🔎HttpDNS,no-resolve #仅匹配ip，不解析域名
@@ -241,11 +239,10 @@ sub-rules:
     - AND,(NETWORK,UDP),(DST-PORT,5351),💧泄漏拦截 # NAT-PMP 请求端口（UDP），用于发起端口映射请求
     - AND,(NETWORK,UDP),(DST-PORT,19302),💧泄漏拦截 # Google 公共 STUN 服务端口（UDP），常用于 WebRTC 默认配置
     - DOMAIN-KEYWORD,stun,💧泄漏拦截
-  SUB-LAN:
+    # 本地直连
     - RULE-SET,Private,🎯全球直连
     - RULE-SET,Privatecidr,🎯全球直连,no-resolve
-  SUB-DOMAIN:
-    - DOMAIN,ghfast.top,🎯全球直连
+    # 域名
     - RULE-SET,AppStore,AppStore # App Store 应用商店
     - RULE-SET,AppleMail,Apple邮箱 # Apple Mail 邮件服务
     - RULE-SET,AppleMusic,Apple音乐 # Apple Music 音乐流媒体
@@ -363,10 +360,7 @@ sub-rules:
     - RULE-SET,ByteDance,字节跳动 # 字节跳动，包含抖音、今日头条等
     - RULE-SET,Tencent,腾讯 # 腾讯相关服务，包括 QQ、腾讯云等
     - RULE-SET,Alibaba,阿里巴巴 # 阿里巴巴，涵盖云计算、电商等
-    - RULE-SET,CN,⚪绕过连接
-    - RULE-SET,Fakeip_Filter,⚪绕过连接
-  SUB-IPCIDR:
-    # 国内服务
+    # IP
     - RULE-SET,NetEasecidr,网易,no-resolve
     - RULE-SET,iQIYIcidr,爱奇艺,no-resolve
     - RULE-SET,NetEaseMusiccidr,网易云音乐,no-resolve
@@ -375,9 +369,7 @@ sub-rules:
     - RULE-SET,Alibabacidr,阿里巴巴,no-resolve
     - RULE-SET,BiliBilicidr,哔哩哔哩,no-resolve
     - RULE-SET,ChinaMediacidr,中国媒体,no-resolve
-    - RULE-SET,CNcidr,🎯全球直连
-
-    # 国际服务
+    ############ 分割线 ############
     - RULE-SET,Applecidr,Apple,no-resolve
     - RULE-SET,Spotifycidr,Spotify,no-resolve
     - RULE-SET,Twitchcidr,Twitch,no-resolve
@@ -402,6 +394,7 @@ sub-rules:
     - RULE-SET,YouTubecidr,YouTube,no-resolve
     - RULE-SET,GlobalMediacidr,国际媒体,no-resolve
     - RULE-SET,Cloudflarecidr,Cloudflare,no-resolve
+    - RULE-SET,CNcidr,🎯全球直连
 
 rule-providers:
   # ------------------------------------------------------------
