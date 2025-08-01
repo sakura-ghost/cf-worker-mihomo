@@ -125,7 +125,7 @@ npm run deploy
 | 参数名       | 说明               | 示例值                                                          |
 |--------------|--------------------|---------------------------------------------------------------|
 | `IMG`        | 背景图 URL         | `https://t.alcy.cc/ycy`                                        |
-| `SUB`        | 转换后端地址        | `https://url.v1.mk`                                            |
+| `SUB`        | 转换后端地址        | [https://sub-stort-nodejs.pages.dev](https://github.com/Kwisma/Sub-Store-node)                                           |
 | `MIHOMO`     | mihomo配置模板           | `https://raw.githubusercontent.com/.../Mihomo_lite.yaml`       |
 | `BEIAN`      | 备案信息           | `萌ICP备20250001号`                                             |
 | `BEIANURL`   | 备案跳转链接        | `https://t.me/Marisa_kristi`                                   |
