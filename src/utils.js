@@ -1,13 +1,25 @@
 import fetch from 'node-fetch';
 import YAML from 'yaml';
-export const backimg = 'https://t.alcy.cc/ycy';
-export const subapi = 'https://url.v1.mk';
-export const mihomo_top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/Config/Mihomo_lite.yaml';
-export const singbox_1_11 = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json';
-export const singbox_1_12 = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json';
-export const singbox_1_12_alpha = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.alpha.json';
-export const beiantext = base64DecodeUtf8('6JCMSUNQ5aSHMjAyNTAwMDHlj7c=');
-export const beiandizi = atob('aHR0cHM6Ly90Lm1lL01hcmlzYV9rcmlzdGk=');
+const backimg = 'https://t.alcy.cc/ycy';
+const subapi = 'https://sub-stort-nodejs.pages.dev';
+const mihomo_top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/Config/Mihomo_lite.yaml';
+const singbox_1_11 = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json';
+const singbox_1_12 = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json';
+const singbox_1_12_alpha = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.alpha.json';
+const beiantext = base64DecodeUtf8('6JCMSUNQ5aSHMjAyNTAwMDHlj7c=');
+const beiandizi = atob('aHR0cHM6Ly90Lm1lL01hcmlzYV9rcmlzdGk=');
+const udp = true; // 默认开启UDP
+export {
+    backimg,
+    subapi,
+    mihomo_top,
+    singbox_1_11,
+    singbox_1_12,
+    singbox_1_12_alpha,
+    beiantext,
+    beiandizi,
+    udp
+}
 export function base64DecodeUtf8(base64) {
     const binary = atob(base64);
     const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
@@ -757,6 +769,7 @@ export async function getFakePage(variable, configdata) {
 ## mihomo 使用提示：
 
 - 支持各种订阅或单节点链接，自动合并生成配置
+- 使用 sub-store 后端转换
 - 可选模板生成 Clash (mihomo) 链接
 - 可复制或扫码导入
 - 去广告过滤
@@ -776,6 +789,7 @@ export async function getFakePage(variable, configdata) {
 ## singbox 使用提示：
 
 - 支持各种订阅或单节点链接，自动合并生成配置
+- 使用 sub-store 后端转换
 - 适用于 sing-box 客户端
 - 支持 1.11.x
 - 支持 1.12.x
