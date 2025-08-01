@@ -7671,13 +7671,14 @@ var browser_default = dist_exports;
 
 // src/utils.js
 var backimg = "https://t.alcy.cc/ycy";
-var subapi = "https://url.v1.mk";
+var subapi = "https://sub-stort-nodejs.pages.dev";
 var mihomo_top = "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/Config/Mihomo_lite.yaml";
 var singbox_1_11 = "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json";
 var singbox_1_12 = "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json";
 var singbox_1_12_alpha = "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.alpha.json";
 var beiantext = base64DecodeUtf8("6JCMSUNQ5aSHMjAyNTAwMDHlj7c=");
 var beiandizi = atob("aHR0cHM6Ly90Lm1lL01hcmlzYV9rcmlzdGk=");
+var udp = true;
 function base64DecodeUtf8(base64) {
   const binary2 = atob(base64);
   const bytes = Uint8Array.from(binary2, (char) => char.charCodeAt(0));
@@ -8411,6 +8412,7 @@ async function getFakePage(variable, configdata) {
 ## mihomo \u4F7F\u7528\u63D0\u793A\uFF1A
 
 - \u652F\u6301\u5404\u79CD\u8BA2\u9605\u6216\u5355\u8282\u70B9\u94FE\u63A5\uFF0C\u81EA\u52A8\u5408\u5E76\u751F\u6210\u914D\u7F6E
+- \u4F7F\u7528 sub-store \u540E\u7AEF\u8F6C\u6362
 - \u53EF\u9009\u6A21\u677F\u751F\u6210 Clash (mihomo) \u94FE\u63A5
 - \u53EF\u590D\u5236\u6216\u626B\u7801\u5BFC\u5165
 - \u53BB\u5E7F\u544A\u8FC7\u6EE4
@@ -8430,6 +8432,7 @@ async function getFakePage(variable, configdata) {
 ## singbox \u4F7F\u7528\u63D0\u793A\uFF1A
 
 - \u652F\u6301\u5404\u79CD\u8BA2\u9605\u6216\u5355\u8282\u70B9\u94FE\u63A5\uFF0C\u81EA\u52A8\u5408\u5E76\u751F\u6210\u914D\u7F6E
+- \u4F7F\u7528 sub-store \u540E\u7AEF\u8F6C\u6362
 - \u9002\u7528\u4E8E sing-box \u5BA2\u6237\u7AEF
 - \u652F\u6301 1.11.x
 - \u652F\u6301 1.12.x
@@ -8818,6 +8821,7 @@ async function getmihomo_config(urls, rule, top, userAgent, subapi2) {
   ]);
   if (!Mihomo_Proxies_Data?.data?.proxies || Mihomo_Proxies_Data?.data?.proxies?.length === 0) throw new Error("\u8282\u70B9\u4E3A\u7A7A");
   Mihomo_Rule_Data.data.proxies = [...Mihomo_Rule_Data?.data?.proxies || [], ...Mihomo_Proxies_Data?.data?.proxies];
+  Mihomo_Rule_Data.data["proxy-groups"] = getMihomo_Proxies_Grouping(Mihomo_Proxies_Data.data, Mihomo_Rule_Data.data);
   Mihomo_Top_Data.data["proxy-providers"] = Mihomo_Proxies_Data?.data?.providers;
   applyTemplate(Mihomo_Top_Data.data, Mihomo_Rule_Data.data);
   return {
@@ -8833,7 +8837,7 @@ async function getMihomo_Proxies_Data(urls, userAgent, subapi2) {
     res = await fetchResponse(urls[0], userAgent);
     if (res?.data?.proxies && Array.isArray(res?.data?.proxies) && res?.data?.proxies?.length > 0) {
       res.data.proxies.forEach((p) => {
-        p.udp = true;
+        if (udp) p.udp = true;
       });
       return {
         status: res.status,
@@ -8845,7 +8849,7 @@ async function getMihomo_Proxies_Data(urls, userAgent, subapi2) {
       res = await fetchResponse(apiurl, userAgent);
       if (res?.data?.proxies && Array.isArray(res?.data?.proxies) && res?.data?.proxies?.length > 0) {
         res.data.proxies.forEach((p) => {
-          p.udp = true;
+          if (udp) p.udp = true;
         });
         return {
           status: res.status,
@@ -8862,7 +8866,7 @@ async function getMihomo_Proxies_Data(urls, userAgent, subapi2) {
       if (res2?.data && Array.isArray(res2?.data?.proxies)) {
         res2.data.proxies.forEach((p) => {
           p.name = `${p.name} [${i + 1}]`;
-          p.udp = true;
+          if (udp) p.udp = true;
         });
         hesList.push({
           status: res2.status,
@@ -8875,7 +8879,7 @@ async function getMihomo_Proxies_Data(urls, userAgent, subapi2) {
         if (res2?.data?.proxies && Array.isArray(res2?.data?.proxies)) {
           res2.data.proxies.forEach((p) => {
             p.name = `${p.name} [${i + 1}]`;
-            p.udp = true;
+            if (udp) p.udp = true;
           });
           hesList.push({
             status: res2.status,
@@ -8904,6 +8908,42 @@ function applyTemplate(top, rule) {
   top["rule-providers"] = { ...top["rule-providers"] || {}, ...rule["rule-providers"] || {} };
 }
 __name(applyTemplate, "applyTemplate");
+function getMihomo_Proxies_Grouping(proxies, groups) {
+  const deletedGroups = [];
+  const updatedGroups = groups["proxy-groups"].filter((group3) => {
+    let matchFound = false;
+    let filter = group3.filter;
+    if (typeof filter === "string" && filter.startsWith("(?i)")) {
+      filter = filter.slice(4);
+    }
+    if (typeof filter !== "string") {
+      return true;
+    }
+    const regex = new RegExp(filter, "i");
+    for (let proxy of proxies.proxies) {
+      if (regex.test(proxy.name)) {
+        matchFound = true;
+        break;
+      }
+    }
+    if (!matchFound) {
+      deletedGroups.push(group3.name);
+      return false;
+    }
+    return true;
+  });
+  updatedGroups.forEach((group3) => {
+    if (group3.proxies) {
+      group3.proxies = group3.proxies.filter((proxyName) => {
+        return !deletedGroups.some((deletedGroup) => {
+          return deletedGroup.includes(proxyName);
+        });
+      });
+    }
+  });
+  return updatedGroups;
+}
+__name(getMihomo_Proxies_Grouping, "getMihomo_Proxies_Grouping");
 
 // src/singbox.js
 async function getsingbox_config(urls, rule, top_default, userAgent, subapi2) {
