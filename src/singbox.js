@@ -1,6 +1,7 @@
 import { splitUrlsAndProxies, Top_Data, Rule_Data, fetchResponse, buildApiUrl } from './utils.js';
 export async function getsingbox_config(urls, rule, top_default, userAgent, subapi) {
-    let top, matched = false;
+    let top,
+        matched = false;
     if (/singbox|sing-box|sfa/i.test(userAgent)) {
         const alphaMatch = userAgent.match(/1\.12\.0\-alpha\.(\d{1,2})\b/);
         const betaMatch = userAgent.match(/1\.12\.0\-beta\.(\d{1,2})\b/);
@@ -39,14 +40,21 @@ export async function getsingbox_config(urls, rule, top_default, userAgent, suba
         throw new Error('不支持的客户端');
     }
 
-    urls = splitUrlsAndProxies(urls)
+    urls = splitUrlsAndProxies(urls);
     const [Singbox_Top_Data, Singbox_Rule_Data, Singbox_Outbounds_Data] = await Promise.all([
         Top_Data(top),
         Rule_Data(rule),
-        getSingbox_Outbounds_Data(urls, subapi, userAgent)
+        getSingbox_Outbounds_Data(urls, subapi, userAgent),
     ]);
 
-    if (!Singbox_Outbounds_Data?.data?.outbounds || Singbox_Outbounds_Data?.data?.outbounds?.length === 0 || typeof Singbox_Outbounds_Data?.data?.outbounds === 'object' && !Array.isArray(Singbox_Outbounds_Data?.data?.outbounds) && Object.keys(Singbox_Outbounds_Data?.data?.outbounds).length === 0) throw new Error(`节点为空，请使用有效订阅`);
+    if (
+        !Singbox_Outbounds_Data?.data?.outbounds ||
+        Singbox_Outbounds_Data?.data?.outbounds?.length === 0 ||
+        (typeof Singbox_Outbounds_Data?.data?.outbounds === 'object' &&
+            !Array.isArray(Singbox_Outbounds_Data?.data?.outbounds) &&
+            Object.keys(Singbox_Outbounds_Data?.data?.outbounds).length === 0)
+    )
+        throw new Error(`节点为空，请使用有效订阅`);
     Singbox_Outbounds_Data.data.outbounds = outboundArrs(Singbox_Outbounds_Data.data);
     const ApiUrlname = [];
     Singbox_Outbounds_Data.data.outbounds.forEach((res) => {
@@ -62,7 +70,7 @@ export async function getsingbox_config(urls, rule, top_default, userAgent, suba
     return {
         status: Singbox_Outbounds_Data.status,
         headers: Singbox_Outbounds_Data.headers,
-        data: JSON.stringify(Singbox_Top_Data.data, null, 4)
+        data: JSON.stringify(Singbox_Top_Data.data, null, 4),
     };
 }
 /**
@@ -82,7 +90,7 @@ export async function getSingbox_Outbounds_Data(urls, subapi, userAgent) {
             return {
                 status: res.status,
                 headers: res.headers,
-                data: res.data
+                data: res.data,
             };
         } else {
             const apiurl = buildApiUrl(urls[0], subapi, 'singbox');
@@ -90,13 +98,13 @@ export async function getSingbox_Outbounds_Data(urls, subapi, userAgent) {
             return {
                 status: res.status,
                 headers: res.headers,
-                data: res.data
+                data: res.data,
             };
         }
     } else {
         const outbounds_list = [];
         const hesList = [];
-        let res
+        let res;
         for (let i = 0; i < urls.length; i++) {
             res = await fetchResponse(urls[i], userAgent);
             if (res?.data && Array.isArray(res?.data?.outbounds)) {
@@ -129,7 +137,7 @@ export async function getSingbox_Outbounds_Data(urls, subapi, userAgent) {
         return {
             status: hes.status,
             headers: hes.headers,
-            data: data
+            data: data,
         };
     }
 }
@@ -144,7 +152,7 @@ export async function getSingbox_Outbounds_Data(urls, subapi, userAgent) {
 export function outboundArrs(data) {
     const excludedTypes = ['direct', 'block', 'dns', 'selector', 'urltest'];
     if (data && Array.isArray(data.outbounds)) {
-        const filteredOutbounds = data.outbounds.filter(outbound => {
+        const filteredOutbounds = data.outbounds.filter((outbound) => {
             if (excludedTypes.includes(outbound.type)) return false;
             if (outbound?.server === '') return false;
             if (outbound?.server_port < 1) return false;
@@ -156,21 +164,21 @@ export function outboundArrs(data) {
 }
 // 策略组处理
 export function loadAndSetOutbounds(Outbounds, ApiUrlname) {
-    Outbounds.forEach(res => {
+    Outbounds.forEach((res) => {
         // 从完整 outbound 名称开始匹配
         let matchedOutbounds;
         let hasValidAction = false;
-        res.filter?.forEach(ac => {
+        res.filter?.forEach((ac) => {
             // 转换为 RegExp 对象
             const keywordReg = new RegExp(ac.keywords) || '';
             if (ac.action === 'include') {
                 // 只保留匹配的
-                matchedOutbounds = ApiUrlname.filter(name => keywordReg.test(name));
+                matchedOutbounds = ApiUrlname.filter((name) => keywordReg.test(name));
                 hasValidAction = true;
             } else if (ac.action === 'exclude') {
                 // 移除匹配的
-                matchedOutbounds = ApiUrlname.filter(name => !keywordReg.test(name));
-                hasValidAction = true
+                matchedOutbounds = ApiUrlname.filter((name) => !keywordReg.test(name));
+                hasValidAction = true;
             } else if (ac.action === 'all') {
                 // 全部保留
                 matchedOutbounds = ApiUrlname;
@@ -192,22 +200,20 @@ export function loadAndSetOutbounds(Outbounds, ApiUrlname) {
         return res;
     });
     // 找出被删除的策略组 tags（即 outbounds 为空的 selector）
-    const removedTags = Outbounds
-        .filter(item => Array.isArray(item.outbounds) && item.outbounds.length === 0)
-        .map(item => item.tag);
+    const removedTags = Outbounds.filter((item) => Array.isArray(item.outbounds) && item.outbounds.length === 0).map((item) => item.tag);
     // 过滤掉引用了已删除 tag 的其他 outbounds 项
-    const cleanedOutbounds = Outbounds.map(item => {
+    const cleanedOutbounds = Outbounds.map((item) => {
         if (Array.isArray(item.outbounds)) {
-            item.outbounds = item.outbounds.filter(tag => !removedTags.includes(tag));
+            item.outbounds = item.outbounds.filter((tag) => !removedTags.includes(tag));
         }
         return item;
     });
 
     // 再次过滤掉 outbounds 数组为空的策略组
-    const filteredOutbounds = cleanedOutbounds.filter(item => {
+    const filteredOutbounds = cleanedOutbounds.filter((item) => {
         return !(Array.isArray(item.outbounds) && item.outbounds.length === 0);
     });
-    return filteredOutbounds
+    return filteredOutbounds;
 }
 export function applyTemplate(top, rule) {
     const existingSet = Array.isArray(top.route.rule_set) ? top.route.rule_set : [];

@@ -12,7 +12,8 @@
 		"build:workers": "wrangler build",
 		"build": "vercel build",
 		"start:workers": "wrangler dev",
-		"start": "vercel dev"
+		"start": "vercel dev",
+		"lint": "prettier --write src/"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.8.47",

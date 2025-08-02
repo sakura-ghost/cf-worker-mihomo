@@ -19,7 +19,7 @@ route:
   rules:
     - { rule_set: [ geosite-category-ads-all ], outbound: 🪧 广告拦截 }
     - { type: logical, mode: or, rules: [ { port: [ 3478 ] }, { network: [ tcp ], port: [ 5349 ] }, { network: [ udp ], port: [ 5350, 5351, 19302 ] }, { rule_set: [ STUN ] } ], outbound: 💧 泄漏拦截 }
-    - { rule_set: [ geosite-private ], outbound: 🎯 全球直连 }
+    - { rule_set: [ geosite-private, geoip-private ], outbound: 🎯 全球直连 }
     - { rule_set: [ BlockHttpDNS ], outbound: 🔎 HttpDNS }
     - { rule_set: [ geosite-microsoft ], outbound: 🪟 Microsoft }
     - { rule_set: [ geosite-ai ], outbound: 🤖 AI }
@@ -29,13 +29,12 @@ route:
     - { rule_set: [ geosite-netflix ], outbound: 🎥 Netflix }
     - { rule_set: [ geosite-apple ], outbound: 🍎 Apple }
     - { rule_set: [ geosite-google ], outbound: 🔍 Google }
-    - { action: resolve }
     - { rule_set: [ geoip-telegram ], outbound: 📲 Telegram }
     - { rule_set: [ geoip-netflix ], outbound: 🎥 Netflix }
     - { rule_set: [ geoip-apple ], outbound: 🍎 Apple }
     - { rule_set: [ geoip-google ], outbound: 🔍 Google }
-    - { rule_set: [ geoip-private, geoip-cn ], outbound: 🎯 全球直连 }
-
+    - { action: resolve }
+    - { rule_set: [ geoip-cn ], outbound: 🎯 全球直连 }
   rule_set:
     # MetaCubeX 规则集
     - { tag: geosite-category-ads-all, type: remote, format: binary, url: https://cdn.jsdmirror.com/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs, download_detour: 🎯 全球直连 }

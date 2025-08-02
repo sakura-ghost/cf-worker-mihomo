@@ -188,13 +188,13 @@ dns:
     "+.eu":
       - "quic://dns0.eu#ecs=1.1.1.1/24&ecs-override=true" # 公共（欧洲） DNS over DOQ
     "RULE-SET:Private,CN":
-      - "quic://dns.18bit.cn#ecs=114.114.114.114/24&ecs-override=true" # 18bit DNS over DOQ
-      - "quic://dns.ipv4dns.com#ecs=114.114.114.114/24&ecs-override=true" # 清新云 DNS over DOQ
-      - "quic://2025.dns1.top#ecs=114.114.114.114/24&ecs-override=true" # 关圣 DNS over DOQ
+      # - "quic://dns.18bit.cn#ecs=114.114.114.114/24&ecs-override=true" # 18bit DNS over DOQ
+      # - "quic://dns.ipv4dns.com#ecs=114.114.114.114/24&ecs-override=true" # 清新云 DNS over DOQ
+      # - "quic://2025.dns1.top#ecs=114.114.114.114/24&ecs-override=true" # 关圣 DNS over DOQ
       - "quic://dns.alidns.com#ecs=114.114.114.114/24&ecs-override=true" # 阿里 DNS over DOQ
       - system
   nameserver:
-    - "quic://dns.adguard-dns.com#ecs=1.1.1.1/24&ecs-override=true" # AdGuard DNS over DOQ
+    # - "quic://dns.adguard-dns.com#ecs=1.1.1.1/24&ecs-override=true" # AdGuard DNS over DOQ
     - "https://cloudflare-dns.com/dns-query#h3=true&ecs=1.1.1.1/24&ecs-override=true" # Cloudflare DNS over H3
     - "https://dns.google/dns-query#h3=true&ecs=1.1.1.1/24&ecs-override=true" # Google DNS over H3
   proxy-server-nameserver: # 代理节点域名解析服务器，仅用于解析代理节点的域名

@@ -7,7 +7,7 @@ export async function getmihomo_config(urls, rule, top, userAgent, subapi) {
     const [Mihomo_Top_Data, Mihomo_Rule_Data, Mihomo_Proxies_Data] = await Promise.all([
         Top_Data(top),
         Rule_Data(rule),
-        getMihomo_Proxies_Data(urls, userAgent, subapi)
+        getMihomo_Proxies_Data(urls, userAgent, subapi),
     ]);
     if (!Mihomo_Proxies_Data?.data?.proxies || Mihomo_Proxies_Data?.data?.proxies?.length === 0) throw new Error('节点为空');
     Mihomo_Rule_Data.data.proxies = [...(Mihomo_Rule_Data?.data?.proxies || []), ...Mihomo_Proxies_Data?.data?.proxies];
@@ -17,7 +17,7 @@ export async function getmihomo_config(urls, rule, top, userAgent, subapi) {
     return {
         status: Mihomo_Proxies_Data.status,
         headers: Mihomo_Proxies_Data.headers,
-        data: JSON.stringify(Mihomo_Top_Data.data, null, 4)
+        data: JSON.stringify(Mihomo_Top_Data.data, null, 4),
     };
 }
 /**
@@ -28,7 +28,7 @@ export async function getmihomo_config(urls, rule, top, userAgent, subapi) {
  * @returns {Promise<{status: number, headers: Object, data: any}>} - 包含状态码、响应头和 subscription-userinfo 字符串
  */
 export async function getMihomo_Proxies_Data(urls, userAgent, subapi) {
-    let res
+    let res;
     if (urls.length === 1) {
         res = await fetchResponse(urls[0], userAgent);
         if (res?.data?.proxies && Array.isArray(res?.data?.proxies) && res?.data?.proxies?.length > 0) {
@@ -38,7 +38,7 @@ export async function getMihomo_Proxies_Data(urls, userAgent, subapi) {
             return {
                 status: res.status,
                 headers: res.headers,
-                data: res.data
+                data: res.data,
             };
         } else {
             const apiurl = buildApiUrl(urls[0], subapi, 'clash');
@@ -50,7 +50,7 @@ export async function getMihomo_Proxies_Data(urls, userAgent, subapi) {
                 return {
                     status: res.status,
                     headers: res.headers,
-                    data: res.data
+                    data: res.data,
                 };
             }
         }
@@ -91,7 +91,7 @@ export async function getMihomo_Proxies_Data(urls, userAgent, subapi) {
         return {
             status: hes.status,
             headers: hes.headers,
-            data: data
+            data: data,
         };
     }
 }
@@ -116,12 +116,12 @@ export function applyTemplate(top, rule) {
  */
 export function getMihomo_Proxies_Grouping(proxies, groups) {
     const deletedGroups = []; // 用于记录已删除的组名
-    const updatedGroups = groups["proxy-groups"].filter(group => {
+    const updatedGroups = groups['proxy-groups'].filter((group) => {
         let matchFound = false;
 
         // 确保 filter 存在并且是一个字符串
         let filter = group.filter;
-        if (typeof filter === 'string' && filter.startsWith("(?i)")) {
+        if (typeof filter === 'string' && filter.startsWith('(?i)')) {
             filter = filter.slice(4); // 去掉 (?i) 部分
         }
 
@@ -130,7 +130,7 @@ export function getMihomo_Proxies_Grouping(proxies, groups) {
             return true; // 保留没有 filter 的组
         }
 
-        const regex = new RegExp(filter, 'i');  // 将 'i' 标志作为第二个参数传递
+        const regex = new RegExp(filter, 'i'); // 将 'i' 标志作为第二个参数传递
 
         // 遍历每个代理，检查是否与当前组的正则匹配
         for (let proxy of proxies.proxies) {
@@ -150,11 +150,11 @@ export function getMihomo_Proxies_Grouping(proxies, groups) {
     });
 
     // 遍历所有策略组，删除 deletedGroups 中的代理
-    updatedGroups.forEach(group => {
+    updatedGroups.forEach((group) => {
         if (group.proxies) {
-            group.proxies = group.proxies.filter(proxyName => {
+            group.proxies = group.proxies.filter((proxyName) => {
                 // 只删除那些在 deletedGroups 中的代理
-                return !deletedGroups.some(deletedGroup => {
+                return !deletedGroups.some((deletedGroup) => {
                     return deletedGroup.includes(proxyName); // 检查 deletedGroups 中是否包含该代理名称
                 });
             });

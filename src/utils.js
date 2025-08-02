@@ -9,20 +9,10 @@ const singbox_1_12_alpha = 'https://raw.githubusercontent.com/Kwisma/cf-worker-m
 const beiantext = base64DecodeUtf8('6JCMSUNQ5aSHMjAyNTAwMDHlj7c=');
 const beiandizi = atob('aHR0cHM6Ly90Lm1lL01hcmlzYV9rcmlzdGk=');
 const udp = true; // 默认开启UDP
-export {
-    backimg,
-    subapi,
-    mihomo_top,
-    singbox_1_11,
-    singbox_1_12,
-    singbox_1_12_alpha,
-    beiantext,
-    beiandizi,
-    udp
-}
+export { backimg, subapi, mihomo_top, singbox_1_11, singbox_1_12, singbox_1_12_alpha, beiantext, beiandizi, udp };
 export function base64DecodeUtf8(base64) {
     const binary = atob(base64);
-    const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+    const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
     return new TextDecoder('utf-8').decode(bytes);
 }
 // 订阅链接
@@ -32,7 +22,7 @@ export function buildApiUrl(rawUrl, BASE_API, ua) {
         url: rawUrl,
         emoji: 'true',
         list: 'true',
-        new_name: 'true'
+        new_name: 'true',
     });
     return `${BASE_API}/sub?${params}`;
 }
@@ -46,18 +36,18 @@ export async function fetchResponse(url, userAgent) {
         response = await fetch(url, {
             method: 'GET',
             headers: {
-                'User-Agent': userAgent
-            }
+                'User-Agent': userAgent,
+            },
         });
     } catch {
-        return true
+        return true;
     }
     // 直接使用 Object.fromEntries 转换 headers
     const headersObj = Object.fromEntries(response.headers.entries());
     // 替换非法 Content-Disposition 字段Add commentMore actions
     const sanitizedCD = sanitizeContentDisposition(response.headers);
     if (sanitizedCD) {
-        headersObj["content-disposition"] = sanitizedCD;
+        headersObj['content-disposition'] = sanitizedCD;
     }
     // 获取响应体的文本内容
     const textData = await response.text();
@@ -66,7 +56,6 @@ export async function fetchResponse(url, userAgent) {
     try {
         jsonData = YAML.parse(textData, { maxAliasCount: -1, merge: true });
     } catch (e) {
-
         try {
             jsonData = JSON.parse(textData);
         } catch (yamlError) {
@@ -77,8 +66,8 @@ export async function fetchResponse(url, userAgent) {
     return {
         status: response.status,
         headers: headersObj,
-        data: jsonData
-    }
+        data: jsonData,
+    };
 }
 // 将订阅链接和代理地址分离
 export function splitUrlsAndProxies(urls) {
@@ -1008,151 +997,151 @@ export function configs() {
     const data = {
         mihomo: [
             {
-                label: "通用",
+                label: '通用',
                 options: [
                     {
-                        label: "默认（精简版）（仅国内外分流）[秋风_ads]",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default.yaml"
+                        label: '默认（精简版）（仅国内外分流）[秋风_ads]',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default.yaml',
                     },
                     {
-                        label: "默认（精简版）（仅国内外分流）[Dustinwin_ads]",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_Ads_Dustinwin.yaml"
+                        label: '默认（精简版）（仅国内外分流）[Dustinwin_ads]',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_Ads_Dustinwin.yaml',
                     },
                     {
-                        label: "默认（精简版）（无去广告）",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_NoAds.yaml"
+                        label: '默认（精简版）（无去广告）',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_NoAds.yaml',
                     },
                     {
-                        label: "默认（全分组）[秋风_ads]",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full.yaml"
+                        label: '默认（全分组）[秋风_ads]',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full.yaml',
                     },
                     {
-                        label: "默认（全分组）[Dustinwin_ads]",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_Ads_Dustinwin.yaml"
+                        label: '默认（全分组）[Dustinwin_ads]',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_Ads_Dustinwin.yaml',
                     },
                     {
-                        label: "默认（全分组）（无去广告）",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_NoAds.yaml"
-                    }
-                ]
+                        label: '默认（全分组）（无去广告）',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_NoAds.yaml',
+                    },
+                ],
             },
             {
-                label: "Mihomo-Party-ACL4SSR",
+                label: 'Mihomo-Party-ACL4SSR',
                 options: [
                     {
-                        label: "ACL4SSR_Online_Full 全包重度用户使用（与Github同步）",
-                        value: "https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full.yaml"
+                        label: 'ACL4SSR_Online_Full 全包重度用户使用（与Github同步）',
+                        value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full.yaml',
                     },
                     {
-                        label: "ACL4SSR_Online_Full_AdblockPlus 全包重度用户使用更多去广告（与Github同步）",
-                        value: "https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_AdblockPlus.yaml"
+                        label: 'ACL4SSR_Online_Full_AdblockPlus 全包重度用户使用更多去广告（与Github同步）',
+                        value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_AdblockPlus.yaml',
                     },
                     {
-                        label: "ACL4SSR_Online_Full_Tiktok 全包重度用户使用抖音全量（与Github同步）",
-                        value: "https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_Tiktok.yaml"
+                        label: 'ACL4SSR_Online_Full_Tiktok 全包重度用户使用抖音全量（与Github同步）',
+                        value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_Tiktok.yaml',
                     },
                     {
-                        label: "ACL4SSR_Online_Full_WithIcon 全包重度用户使用（与Github同步）（无图标）",
-                        value: "https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_WithIcon.yaml"
+                        label: 'ACL4SSR_Online_Full_WithIcon 全包重度用户使用（与Github同步）（无图标）',
+                        value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_WithIcon.yaml',
                     },
                     {
-                        label: "ACL4SSR_Online_Mini_MultiMode 专业版自动测速、故障转移、负载均衡（与Github同步）",
-                        value: "https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Mini_MultiMode.yaml"
+                        label: 'ACL4SSR_Online_Mini_MultiMode 专业版自动测速、故障转移、负载均衡（与Github同步）',
+                        value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Mini_MultiMode.yaml',
                     },
                     {
-                        label: "极简分流规则",
-                        value: "https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/极简分流规则.yaml"
-                    }
-                ]
+                        label: '极简分流规则',
+                        value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/极简分流规则.yaml',
+                    },
+                ],
             },
             {
-                label: "网络收集",
+                label: '网络收集',
                 options: [
                     {
-                        label: "布丁狗的订阅转换 (与Github同步)",
-                        value: "https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/%E5%B8%83%E4%B8%81%E7%8B%97%E7%9A%84%E8%AE%A2%E9%98%85%E8%BD%AC%E6%8D%A2.yaml"
+                        label: '布丁狗的订阅转换 (与Github同步)',
+                        value: 'https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/%E5%B8%83%E4%B8%81%E7%8B%97%E7%9A%84%E8%AE%A2%E9%98%85%E8%BD%AC%E6%8D%A2.yaml',
                     },
                     {
-                        label: "6D 自用模板 ",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_6D_自用模板.yaml"
+                        label: '6D 自用模板 ',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_6D_自用模板.yaml',
                     },
                     {
-                        label: "ACL4SSR_Online_Full 全分组版 (与Github同步)",
-                        value: "https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/ACL4SSR_Online_Full.yaml"
+                        label: 'ACL4SSR_Online_Full 全分组版 (与Github同步)',
+                        value: 'https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/ACL4SSR_Online_Full.yaml',
                     },
                     {
-                        label: "ACL4SSR_Online_Full_WithIcon 全分组版 (与Github同步) (无图标)",
-                        value: "https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/ACL4SSR_Online_Full_WithIcon.yaml"
+                        label: 'ACL4SSR_Online_Full_WithIcon 全分组版 (与Github同步) (无图标)',
+                        value: 'https://raw.githubusercontent.com/mihomo-party-org/override-hub/main/yaml/ACL4SSR_Online_Full_WithIcon.yaml',
                     },
-                ]
+                ],
             },
             {
-                label: "Lanlan13-14",
+                label: 'Lanlan13-14',
                 options: [
                     {
-                        label: "configfull 全分组版 (与Github同步)",
-                        value: "https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull.yaml"
+                        label: 'configfull 全分组版 (与Github同步)',
+                        value: 'https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull.yaml',
                     },
                     {
-                        label: "configfull_NoAd 全分组版 (与Github同步) (无去广告)",
-                        value: "https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_NoAd.yaml"
+                        label: 'configfull_NoAd 全分组版 (与Github同步) (无去广告)',
+                        value: 'https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_NoAd.yaml',
                     },
                     {
-                        label: "configfull_NoAd_Stash 全分组版 (与Github同步) (无去广告) (Stash)",
-                        value: "https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_NoAd_Stash.yaml"
+                        label: 'configfull_NoAd_Stash 全分组版 (与Github同步) (无去广告) (Stash)',
+                        value: 'https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_NoAd_Stash.yaml',
                     },
                     {
-                        label: "configfull_NoAd_Stash_lite 全分组版 (与Github同步) (无去广告) (精简版) (Stash)",
-                        value: "https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_NoAd_Stash_lite.yaml"
+                        label: 'configfull_NoAd_Stash_lite 全分组版 (与Github同步) (无去广告) (精简版) (Stash)',
+                        value: 'https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_NoAd_Stash_lite.yaml',
                     },
                     {
-                        label: "configfull_NoAd_lite 全分组版 (与Github同步) (无去广告) (精简版)",
-                        value: "https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_NoAd_lite.yaml"
+                        label: 'configfull_NoAd_lite 全分组版 (与Github同步) (无去广告) (精简版)',
+                        value: 'https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_NoAd_lite.yaml',
                     },
                     {
-                        label: "configfull_Stash 全分组版 (与Github同步) (Stash)",
-                        value: "https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_Stash.yaml"
+                        label: 'configfull_Stash 全分组版 (与Github同步) (Stash)',
+                        value: 'https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_Stash.yaml',
                     },
                     {
-                        label: "configfull_Stash_lite 全分组版 (与Github同步) (精简版) (Stash)",
-                        value: "https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_Stash_lite.yaml"
+                        label: 'configfull_Stash_lite 全分组版 (与Github同步) (精简版) (Stash)',
+                        value: 'https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_Stash_lite.yaml',
                     },
                     {
-                        label: "configfull_lite 全分组版 (与Github同步) (精简版)",
-                        value: "https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_lite.yaml"
+                        label: 'configfull_lite 全分组版 (与Github同步) (精简版)',
+                        value: 'https://raw.githubusercontent.com/Lanlan13-14/Rules/main/configfull_lite.yaml',
                     },
-                ]
+                ],
             },
         ],
         singbox: [
             {
-                label: "通用",
+                label: '通用',
                 options: [
                     {
-                        label: "默认（精简版）[秋风_ads]",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default.yaml"
+                        label: '默认（精简版）[秋风_ads]',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default.yaml',
                     },
                     {
-                        label: "默认（mini版）[geo_ads]",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_mini.yaml"
+                        label: '默认（mini版）[geo_ads]',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_mini.yaml',
                     },
                     {
-                        label: "默认（全分组）[秋风_ads]",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_full.yaml"
+                        label: '默认（全分组）[秋风_ads]',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_full.yaml',
                     },
                     {
-                        label: "DustinWin 全分组版[ads]",
-                        value: "https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_DustinWin_full.yaml"
-                    }
-                ]
-            }
-        ]
-    }
-    return JSON.stringify(data)
+                        label: 'DustinWin 全分组版[ads]',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_DustinWin_full.yaml',
+                    },
+                ],
+            },
+        ],
+    };
+    return JSON.stringify(data);
 }
 
 export function sanitizeContentDisposition(headers) {
-    const contentDisposition = headers.get("Content-Disposition") || headers.get("content-disposition");
+    const contentDisposition = headers.get('Content-Disposition') || headers.get('content-disposition');
 
     if (!contentDisposition) return null;
 
@@ -1167,7 +1156,7 @@ export function sanitizeContentDisposition(headers) {
     if (!isNonAscii) return contentDisposition; // 不含中文，保持原样
 
     // 使用 fallback ASCII 名 + filename*=UTF-8''xxx 形式替换
-    const fallback = "download.json";
+    const fallback = 'download.json';
     const encoded = encodeURIComponent(originalFilename);
 
     return `attachment; filename="${fallback}"; filename*=UTF-8''${encoded}`;

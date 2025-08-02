@@ -5,18 +5,18 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
         const userAgent = request.headers.get('User-Agent');
-        const rule = url.searchParams.get("template");
-        const singbox = url.searchParams.get("singbox");
-        const IMG = env.IMG || backimg
-        const sub = env.SUB || subapi
-        const Mihomo_default = env.MIHOMO || mihomo_top
+        const rule = url.searchParams.get('template');
+        const singbox = url.searchParams.get('singbox');
+        const IMG = env.IMG || backimg;
+        const sub = env.SUB || subapi;
+        const Mihomo_default = env.MIHOMO || mihomo_top;
         const Singbox_default = {
             singbox_1_11: env.SINGBOX_1_11 || singbox_1_11,
             singbox_1_12: env.SINGBOX_1_12 || singbox_1_12,
-            singbox_1_12_alpha: env.SINGBOX_1_12_ALPHA || singbox_1_12_alpha
+            singbox_1_12_alpha: env.SINGBOX_1_12_ALPHA || singbox_1_12_alpha,
         };
-        const beian = env.BEIAN || beiantext
-        const beianurl = env.BEIANURL || beiandizi
+        const beian = env.BEIAN || beiantext;
+        const beianurl = env.BEIANURL || beiandizi;
         const variable = {
             userAgent,
             rule,
@@ -26,21 +26,21 @@ export default {
             Mihomo_default,
             Singbox_default,
             beian,
-            beianurl
+            beianurl,
         };
         // 处理 URL 参数
-        let urls = url.searchParams.getAll("url");
+        let urls = url.searchParams.getAll('url');
 
-        if (urls.length === 1 && urls[0].includes(",")) {
-            urls = urls[0].split(",").map(u => u.trim()); // 拆分并去除空格
+        if (urls.length === 1 && urls[0].includes(',')) {
+            urls = urls[0].split(',').map((u) => u.trim()); // 拆分并去除空格
         }
 
-        if (urls.length === 0 || urls[0] === "") {
+        if (urls.length === 0 || urls[0] === '') {
             return new Response(await getFakePage(variable, configs()), {
                 status: 200,
                 headers: {
-                    "Content-Type": "text/html; charset=utf-8"
-                }
+                    'Content-Type': 'text/html; charset=utf-8',
+                },
             });
         }
         try {
@@ -53,19 +53,19 @@ export default {
             const responseHeaders = res.headers || {};
             headers = new Headers(responseHeaders);
             status = res.status;
-            headers.set("Content-Type", "application/json; charset=utf-8");
-            headers.set("Profile-web-page-url", url.origin);
+            headers.set('Content-Type', 'application/json; charset=utf-8');
+            headers.set('Profile-web-page-url', url.origin);
             return new Response(res.data, {
                 status,
-                headers
+                headers,
             });
         } catch (err) {
             return new Response(err.message, {
                 status: 400,
                 headers: {
-                    "Content-Type": "application/json; charset=utf-8"
-                }
+                    'Content-Type': 'application/json; charset=utf-8',
+                },
             });
         }
-    }
+    },
 };
