@@ -8987,7 +8987,8 @@ async function getsingbox_config(urls, rule, top_default, userAgent, subapi2) {
     Rule_Data(rule),
     getSingbox_Outbounds_Data(urls, subapi2, userAgent)
   ]);
-  if (!Singbox_Outbounds_Data?.data?.outbounds || Singbox_Outbounds_Data?.data?.outbounds?.length === 0 || typeof Singbox_Outbounds_Data?.data?.outbounds === "object" && !Array.isArray(Singbox_Outbounds_Data?.data?.outbounds) && Object.keys(Singbox_Outbounds_Data?.data?.outbounds).length === 0) throw new Error(`\u8282\u70B9\u4E3A\u7A7A\uFF0C\u8BF7\u4F7F\u7528\u6709\u6548\u8BA2\u9605`);
+  if (!Singbox_Outbounds_Data?.data?.outbounds || Singbox_Outbounds_Data?.data?.outbounds?.length === 0 || typeof Singbox_Outbounds_Data?.data?.outbounds === "object" && !Array.isArray(Singbox_Outbounds_Data?.data?.outbounds) && Object.keys(Singbox_Outbounds_Data?.data?.outbounds).length === 0)
+    throw new Error(`\u8282\u70B9\u4E3A\u7A7A\uFF0C\u8BF7\u4F7F\u7528\u6709\u6548\u8BA2\u9605`);
   Singbox_Outbounds_Data.data.outbounds = outboundArrs(Singbox_Outbounds_Data.data);
   const ApiUrlname = [];
   Singbox_Outbounds_Data.data.outbounds.forEach((res) => {
