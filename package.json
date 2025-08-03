@@ -2,21 +2,21 @@
 	"name": "cf-worker-mihomo",
 	"version": "1.2.0",
 	"private": true,
-	"type": "module",
 	"license": "MIT",
 	"scripts": {
-		"deploy:workers": "wrangler deploy",
+		"deploy:workers": "node worker_esbuild.js && wrangler deploy",
 		"deploy": "vercel --prod",
-		"dev:workers": "wrangler dev",
+		"dev:workers": "node worker_esbuild.js && wrangler dev",
 		"dev": "vercel dev",
-		"build:workers": "wrangler build",
+		"build:workers": "node worker_esbuild.js",
 		"build": "vercel build",
-		"start:workers": "wrangler dev",
+		"start:workers": "node worker_esbuild.js && wrangler dev",
 		"start": "vercel dev",
-		"lint": "prettier --write src/"
+		"lint": "prettier --write src/*"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.8.47",
+		"esbuild": "^0.25.8",
 		"vercel": "^44.2.7",
 		"wrangler": "^4.22.0"
 	},

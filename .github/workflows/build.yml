@@ -26,8 +26,8 @@ jobs:
       - name: cp worker.js
         run: |
           cp ./dist/index.js _worker.js
-      - name: Apply Patch
-        run: git apply .github/patch/replace-helpers.patch
+      # - name: Apply Patch
+      #   run: git apply .github/patch/replace-helpers.patch
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
