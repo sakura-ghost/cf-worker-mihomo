@@ -25,7 +25,7 @@ jobs:
           npm run build:workers
       - name: cp worker.js
         run: |
-          cp ./dist/index.js _worker.js
+          cp ./dist/_worker.js _worker.js
       # - name: Apply Patch
       #   run: git apply .github/patch/replace-helpers.patch
       - run: |

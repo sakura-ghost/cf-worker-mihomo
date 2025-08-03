@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import YAML from 'yaml';
 const backimg = 'https://t.alcy.cc/ycy';
 const subapi = 'https://sub-stort-nodejs.pages.dev';
