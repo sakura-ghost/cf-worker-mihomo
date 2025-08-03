@@ -25,20 +25,17 @@ route:
     - { rule_set: [ appletv ], outbound: appletv }
     - { rule_set: [ bilibili ], outbound: bilibili }
     - { rule_set: [ disney ], outbound: disney }
-    - { rule_set: [ games ], outbound: 国际游戏 }
+    - { rule_set: [ games, games_ip ], outbound: 国际游戏 }
     - { rule_set: [ games_cn ], outbound: 国内游戏 }
-    - { rule_set: [ media ], outbound: 国际媒体 }
+    - { rule_set: [ media, media_ip ], outbound: 国际媒体 }
     - { rule_set: [ microsoft_cn ], outbound: 微软服务 }
-    - { rule_set: [ netflix ], outbound: netflix }
+    - { rule_set: [ netflix, netflix_ip ], outbound: netflix }
     - { rule_set: [ networktest ], outbound: speedtest }
     - { rule_set: [ openai ], outbound: openai }
     - { rule_set: [ primevideo ], outbound: 亚马逊TV }
     - { rule_set: [ spotify ], outbound: spotify }
     - { rule_set: [ tiktok ], outbound: tiktok }
     - { rule_set: [ youtube ], outbound: youtube }
-    - { rule_set: [ games_ip ], outbound: 国际游戏 }
-    - { rule_set: [ media_ip ], outbound: 国际媒体 }
-    - { rule_set: [ netflix_ip ], outbound: netflix }
     - { rule_set: [ telegram_ip ], outbound: telegram }
     - { action: resolve }
     - { rule_set: [ cn_ip ], outbound: 🎯 全球直连 }
