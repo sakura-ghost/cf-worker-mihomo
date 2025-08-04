@@ -4,15 +4,14 @@
 	"private": true,
 	"license": "MIT",
 	"scripts": {
-		"deploy:workers": "node worker_esbuild.js && wrangler deploy",
+		"deploy:workers": "node esbuild.js && wrangler deploy",
 		"deploy": "vercel --prod",
-		"dev:workers": "node worker_esbuild.js && wrangler dev",
+		"dev:workers": "node esbuild.js && wrangler dev",
 		"dev": "vercel dev",
-		"build:workers": "node worker_esbuild.js",
-		"build": "vercel build",
-		"start:workers": "node worker_esbuild.js && wrangler dev",
+		"build": "node esbuild.js",
+		"start:workers": "node esbuild.js && wrangler dev",
 		"start": "vercel dev",
-		"lint": "prettier --write src/*"
+		"lint": "prettier --write \"**/*.js\""
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "0.8.47",
@@ -21,10 +20,7 @@
 		"wrangler": "^4.22.0"
 	},
 	"dependencies": {
-		"@koa/router": "^13.1.0",
-		"fs": "^0.0.1-security",
-		"koa": "^3.0.0",
-		"node-fetch": "^3.3.2",
+		"prettier": "^3.6.2",
 		"yaml": "^2.8.0"
 	}
 }

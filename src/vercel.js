@@ -1,16 +1,13 @@
 import { getFakePage, configs, backimg, subapi, mihomo_top, singbox_1_11, singbox_1_12, singbox_1_12_alpha, beiantext, beiandizi } from './utils.js';
 import { getmihomo_config } from './mihomo.js';
 import { getsingbox_config } from './singbox.js';
-import Koa from 'koa';
-import Router from '@koa/router';
-const app = new Koa();
-const router = new Router();
 
-router.get('/', async (ctx) => {
-    const url = new URL(ctx.request.href);
-    const userAgent = ctx.request.headers['user-agent'];
+export default async function handler(req, res) {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const userAgent = req.headers['user-agent'];
     const rule = url.searchParams.get('template');
     const singbox = url.searchParams.get('singbox');
+
     const IMG = process.env.IMG || backimg;
     const sub = process.env.SUB || subapi;
     const Mihomo_default = process.env.MIHOMO || mihomo_top;
@@ -21,6 +18,7 @@ router.get('/', async (ctx) => {
     };
     const beian = process.env.BEIAN || beiantext;
     const beianurl = process.env.BEIANURL || beiandizi;
+
     const variable = {
         userAgent,
         IMG,
@@ -31,49 +29,43 @@ router.get('/', async (ctx) => {
         beianurl,
     };
 
-    // Handle URL parameters
     let urls = url.searchParams.getAll('url');
-
     if (urls.length === 1 && urls[0].includes(',')) {
-        urls = urls[0].split(',').map((u) => u.trim()); // Split and trim spaces
+        urls = urls[0].split(',').map((u) => u.trim());
     }
 
     if (urls.length === 0 || urls[0] === '') {
-        ctx.body = await getFakePage(variable, configs());
-        ctx.type = 'html';
+        const html = await getFakePage(variable, configs());
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.statusCode = 200;
+        res.end(html);
         return;
     }
 
     try {
-        let res;
+        let result;
         if (singbox) {
-            res = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
+            result = await getsingbox_config(urls, rule, Singbox_default, userAgent, sub);
         } else {
-            res = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub);
+            result = await getmihomo_config(urls, rule, Mihomo_default, userAgent, sub);
         }
-        // 过滤 headers 中的不安全字段，并转为普通对象
-        const rawHeaders = res.headers || {};
+
+        const rawHeaders = result.headers || {};
         const headersToIgnore = ['transfer-encoding', 'content-length', 'content-encoding', 'connection'];
 
-        const safeHeaders = {};
         for (const [key, value] of Object.entries(rawHeaders)) {
             if (!headersToIgnore.includes(key.toLowerCase())) {
-                safeHeaders[key] = value;
+                res.setHeader(key, value);
             }
         }
-        safeHeaders['Content-Type'] = 'application/json; charset=utf-8';
-        safeHeaders['Profile-web-page-url'] = url.origin;
 
-        ctx.body = res.data;
-        ctx.status = res.status;
-        ctx.set(safeHeaders);
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        res.setHeader('Profile-web-page-url', url.origin);
+        res.statusCode = result.status || 200;
+        res.end(result.data);
     } catch (err) {
-        ctx.body = err.message;
-        ctx.status = 400;
-        ctx.type = 'json';
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        res.end(JSON.stringify({ error: err.message }));
     }
-});
-
-app.use(router.routes()).use(router.allowedMethods());
-
-export default app.callback();
+}
