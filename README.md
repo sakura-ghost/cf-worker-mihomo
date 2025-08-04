@@ -84,7 +84,7 @@ npm run deploy
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Kwisma/cf-worker-mihomo)
 
 配置选项：
-- **构建命令**：`npm run build:workers`
+- **构建命令**：`npm run build`
 - **部署命令**：`npx wrangler deploy --keep-vars`
 
 #### 方法二：手动部署
