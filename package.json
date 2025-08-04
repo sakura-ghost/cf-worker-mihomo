@@ -4,12 +4,12 @@
 	"private": true,
 	"license": "MIT",
 	"scripts": {
-		"deploy:workers": "node esbuild.js && wrangler deploy",
+		"deploy:workers": "wrangler deploy",
 		"deploy": "vercel --prod",
-		"dev:workers": "node esbuild.js && wrangler dev",
+		"dev:workers": "wrangler dev",
 		"dev": "vercel dev",
 		"build": "node esbuild.js",
-		"start:workers": "node esbuild.js && wrangler dev",
+		"start:workers": "wrangler dev",
 		"start": "vercel dev",
 		"lint": "prettier --write \"**/*.js\""
 	},

@@ -15,7 +15,7 @@ const artifacts = [
             sourcemap: true, // 生成 Source Map
             minify: true, // 压缩代码
             target: ['es2020'], // 目标环境
-            format: 'cjs', // 输出格式 CommonJS
+            format: 'esm', // 输出格式 CommonJS
             platform: 'browser', // 目标平台为浏览器
         });
         console.log(`✔️ 打包完成: ${artifact.src} → ${artifact.dest}`);
