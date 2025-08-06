@@ -1,15 +1,14 @@
 // import fetch from 'node-fetch';
 import YAML from 'yaml';
-const backimg = 'https://t.alcy.cc/ycy';
-const subapi = 'https://sub-stort-nodejs.pages.dev';
-const mihomo_top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/Config/Mihomo_lite.yaml';
-const singbox_1_11 = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json';
-const singbox_1_12 = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json';
-const singbox_1_12_alpha = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.alpha.json';
-const beiantext = base64DecodeUtf8('6JCMSUNQ5aSHMjAyNTAwMDHlj7c=');
-const beiandizi = atob('aHR0cHM6Ly90Lm1lL01hcmlzYV9rcmlzdGk=');
-const udp = true; // 默认开启UDP
-export { backimg, subapi, mihomo_top, singbox_1_11, singbox_1_12, singbox_1_12_alpha, beiantext, beiandizi, udp };
+export const backimg = 'https://t.alcy.cc/ycy';
+export const subapi = 'https://sub-stort-nodejs.pages.dev';
+export const mihomo_top = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/Config/Mihomo_lite.yaml';
+export const singbox_1_11 = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox_1.11.X.json';
+export const singbox_1_12 = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.json';
+export const singbox_1_12_alpha = 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/refs/heads/main/Config/singbox-1.12.X.alpha.json';
+export const beiantext = base64DecodeUtf8('6JCMSUNQ5aSHMjAyNTAwMDHlj7c=');
+export const beiandizi = atob('aHR0cHM6Ly90Lm1lL01hcmlzYV9rcmlzdGk=');
+export const udp = true; // 默认开启UDP
 export function base64DecodeUtf8(base64) {
     const binary = atob(base64);
     const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
@@ -119,7 +118,7 @@ export async function getFakePage(variable, configdata) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20id='Partition-Auto--Streamline-Carbon'%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20height='16'%20width='16'%3E%3Cdesc%3EPartition%20Auto%20Streamline%20Icon%3A%20https%3A//streamlinehq.com%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cpath%20d='M13%209.5c-1.1028%200%20-2%200.8972%20-2%202%200%200.3418%200.0941%200.6587%200.24585%200.94045C10.30775%2013.12675%209.17285%2013.5%208%2013.5%204.9673%2013.5%202.5%2011.0327%202.5%208H1.5c0%203.584%202.9159%206.5%206.5%206.5%201.42275%200%202.79615%20-0.468%203.92165%20-1.3208C12.2334%2013.38015%2012.6023%2013.5%2013%2013.5c1.1028%200%202%20-0.8972%202%20-2s-0.8972%20-2%20-2%20-2Zm0%203c-0.5514%200%20-1%20-0.44875%20-1%20-1s0.4486%20-1%201%20-1%201%200.44875%201%201%20-0.4486%201%20-1%201Z'%20fill='%23000000'%20stroke-width='0.5'/%3E%3Cpath%20d='M8%201.5c-1.42275%200%20-2.79615%200.468%20-3.92165%201.3208C3.7666%202.61985%203.3977%202.5%203%202.5%201.8972%202.5%201%203.3972%201%204.5s0.8972%202%202%202%202%20-0.8972%202%20-2c0%20-0.3418%20-0.0941%20-0.6587%20-0.24585%20-0.94045C5.69225%202.87325%206.82715%202.5%208%202.5c3.0327%200%205.5%202.4673%205.5%205.5h1c0%20-3.584%20-2.9159%20-6.5%20-6.5%20-6.5ZM3%205.5c-0.5514%200%20-1%20-0.44875%20-1%20-1s0.4486%20-1%201%20-1%201%200.44875%201%201%20-0.4486%201%20-1%201Z'%20fill='%23000000'%20stroke-width='0.5'/%3E%3Cpath%20id='_Transparent_Rectangle_'%20d='M0%200h16v16H0Z'%20fill='none'%20stroke-width='0.5'/%3E%3C/svg%3E">
-    <title>mihomo/singbox汇聚（订阅转换）工具</title>
+    <title>mihomo/singbox汇聚(订阅转换)工具</title>
     <style>
         :root {
             --primary-color: #4361ee;
@@ -600,7 +599,7 @@ export async function getFakePage(variable, configdata) {
     </a>
     <div class="container">
         <div class="logo-title">
-            <h1>mihomo/singbox汇聚（订阅转换）工具</h1>
+            <h1>mihomo/singbox汇聚(订阅转换)工具</h1>
         </div>
         <div class="config-toggle">
             <div class="toggle-option active" data-mode="mihomo">Clash (mihomo)</div>
@@ -608,7 +607,7 @@ export async function getFakePage(variable, configdata) {
         </div>
         <div class="mihomo-options">
             <div class="template-selector">
-                <div class="template-toggle collapsed">选择配置模板（未选择）</div>
+                <div class="template-toggle collapsed">选择配置模板(未选择)</div>
                 <div class="template-options">
                     <!-- 模板选项将通过JavaScript填充 -->
                 </div>
@@ -635,7 +634,7 @@ export async function getFakePage(variable, configdata) {
 
         <div class="singbox-options">
             <div class="template-selector">
-                <div class="template-toggle collapsed">选择配置模板（未选择）</div>
+                <div class="template-toggle collapsed">选择配置模板(未选择)</div>
                 <div class="template-options">
                     <!-- 模板选项将通过JavaScript填充 -->
                 </div>
@@ -762,9 +761,9 @@ export async function getFakePage(variable, configdata) {
 - 可选模板生成 Clash (mihomo) 链接
 - 可复制或扫码导入
 - 去广告过滤
-- 防止 DNS 泄漏（安全DNS/DoH）
-- 屏蔽 WebRTC 泄漏（防止真实IP暴露）
-- 关闭所有覆写功能（不是关闭功能，是关闭覆写）以确保配置正常生效
+- 防止 DNS 泄漏(安全DNS/DoH)
+- 屏蔽 WebRTC 泄漏(防止真实IP暴露)
+- 关闭所有覆写功能(不是关闭功能，是关闭覆写)以确保配置正常生效
 
 ## 配置信息
 
@@ -783,7 +782,7 @@ export async function getFakePage(variable, configdata) {
 - 支持 1.11.x
 - 支持 1.12.x
 - 支持扫码或链接复制导入
-- 防止 DNS 泄漏（安全DNS/DoH）
+- 防止 DNS 泄漏(安全DNS/DoH)
 
 ## 配置信息
 
@@ -902,8 +901,8 @@ export async function getFakePage(variable, configdata) {
                 firstOption.classList.add('selected');
                 const groupLabel = firstOption.dataset.group;
                 const optionLabel = firstOption.textContent;
-                templateToggle.textContent = \`请选择配置模板（默认-\${groupLabel}）\`;
-                // templateToggle.textContent = \`请选择配置模板（\${groupLabel}-\${firstOption.textContent}）\`;
+                templateToggle.textContent = \`请选择配置模板(默认-\${groupLabel})\`;
+                // templateToggle.textContent = \`请选择配置模板(\${groupLabel}-\${firstOption.textContent})\`;
             }
 
             // 点击切换按钮展开/折叠选项
@@ -1000,27 +999,31 @@ export function configs() {
                 label: '通用',
                 options: [
                     {
-                        label: '默认（精简版）（仅国内外分流）[秋风_ads]',
+                        label: '默认(精简版) (仅国内外分流) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default.yaml',
                     },
+                    // {
+                    //     label: '默认(精简版)(仅国内外分流)[Dustinwin_ads] (与Github同步) ',
+                    //     value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_Ads_Dustinwin.yaml',
+                    // },
                     {
-                        label: '默认（精简版）（仅国内外分流）[Dustinwin_ads]',
-                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_Ads_Dustinwin.yaml',
-                    },
-                    {
-                        label: '默认（精简版）（无去广告）',
+                        label: '默认(精简版) (仅国内外分流) (无去广告) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_NoAds.yaml',
                     },
                     {
-                        label: '默认（全分组）[秋风_ads]',
+                        label: '默认(mihomo官方版) (无去广告) (与Github同步) ',
+                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_official.yaml',
+                    },
+                    {
+                        label: '默认(全分组) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full.yaml',
                     },
+                    // {
+                    //     label: '默认(全分组)[Dustinwin_ads] (与Github同步) ',
+                    //     value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_Ads_Dustinwin.yaml',
+                    // },
                     {
-                        label: '默认（全分组）[Dustinwin_ads]',
-                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_Ads_Dustinwin.yaml',
-                    },
-                    {
-                        label: '默认（全分组）（无去广告）',
+                        label: '默认(全分组) (无去广告) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/Mihomo_default_full_NoAds.yaml',
                     },
                 ],
@@ -1029,23 +1032,23 @@ export function configs() {
                 label: 'Mihomo-Party-ACL4SSR',
                 options: [
                     {
-                        label: 'ACL4SSR_Online_Full 全包重度用户使用（与Github同步）',
+                        label: 'ACL4SSR_Online_Full 全包重度用户使用(与Github同步)',
                         value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full.yaml',
                     },
                     {
-                        label: 'ACL4SSR_Online_Full_AdblockPlus 全包重度用户使用更多去广告（与Github同步）',
+                        label: 'ACL4SSR_Online_Full_AdblockPlus 全包重度用户使用更多去广告(与Github同步)',
                         value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_AdblockPlus.yaml',
                     },
                     {
-                        label: 'ACL4SSR_Online_Full_Tiktok 全包重度用户使用抖音全量（与Github同步）',
+                        label: 'ACL4SSR_Online_Full_Tiktok 全包重度用户使用抖音全量(与Github同步)',
                         value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_Tiktok.yaml',
                     },
                     {
-                        label: 'ACL4SSR_Online_Full_WithIcon 全包重度用户使用（与Github同步）（无图标）',
+                        label: 'ACL4SSR_Online_Full_WithIcon 全包重度用户使用(与Github同步)(无图标)',
                         value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Full_WithIcon.yaml',
                     },
                     {
-                        label: 'ACL4SSR_Online_Mini_MultiMode 专业版自动测速、故障转移、负载均衡（与Github同步）',
+                        label: 'ACL4SSR_Online_Mini_MultiMode 专业版自动测速、故障转移、负载均衡(与Github同步)',
                         value: 'https://raw.githubusercontent.com/zhuqq2020/Mihomo-Party-ACL4SSR/main/ACL4SSR_Online_Mini_MultiMode.yaml',
                     },
                     {
@@ -1118,19 +1121,19 @@ export function configs() {
                 label: '通用',
                 options: [
                     {
-                        label: '默认（精简版）[秋风_ads]',
+                        label: '默认(精简版) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default.yaml',
                     },
+                    // {
+                    //     label: '默认(mini版)[geo_ads] (与Github同步) ',
+                    //     value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_mini.yaml',
+                    // },
                     {
-                        label: '默认（mini版）[geo_ads]',
-                        value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_mini.yaml',
-                    },
-                    {
-                        label: '默认（全分组）[秋风_ads]',
+                        label: '默认(全分组) (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_default_full.yaml',
                     },
                     {
-                        label: 'DustinWin 全分组版[ads]',
+                        label: 'DustinWin 全分组版[ads] (与Github同步) ',
                         value: 'https://raw.githubusercontent.com/Kwisma/cf-worker-mihomo/main/template/singbox_DustinWin_full.yaml',
                     },
                 ],
@@ -1151,7 +1154,7 @@ export function sanitizeContentDisposition(headers) {
 
     const originalFilename = filenameMatch[1];
 
-    // 检查是否含中文（或非 ASCII）
+    // 检查是否含中文(或非 ASCII)
     const isNonAscii = /[^\x00-\x7F]/.test(originalFilename);
     if (!isNonAscii) return contentDisposition; // 不含中文，保持原样
 
